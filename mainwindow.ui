@@ -28,9 +28,52 @@
 	background-image: url(:/new/images/media/corbon_fiber_bg.jpg);
 	color: #f8ad47;
 }
+
+QTabBar::tab {
+    background: #353535;
+    min-width: 8ex;
+    padding: 2px;
+	border: 2px solid #808080;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+QTabBar::tab:selected {
+    color: #f8ad47;
+}
+
+QTabBar::tab:!selected {
+    margin-top: 2px; /* make non-selected tabs look smaller */
+}
+
+QPushButton{
+	margin-top: 1em;
+    margin-right: 0;
+	color: #f8ad47;
+    background:  #3f3b3c;
+	padding:  .8em .2em; 
+	border-radius:1.2em;
+}
+
+QPushButton:hover{
+	border: 1px solid #f8ad47;
+}
+
 #books_tab , #admin_book_tab, #info_tab, #add_tab, #remove_tab {
 	background: #353535;
 }
+
+
+#title_label , #isbn_label, #genre_label, #author_label {
+	background: #353535;
+}
+
+
+#title_input , #isbn_input, #genre_input, #author_input {
+	background: #D3D3D3;
+	color: #f8ad47;
+}
+
 #MainMenuLabel{
 	max-height: 4em;
 	background: transparent;
@@ -102,6 +145,82 @@
              <attribute name="title">
               <string>Registar Livro</string>
              </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="title_label">
+                  <property name="text">
+                   <string>TITULO: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="title_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QLabel" name="isbn_label">
+                  <property name="text">
+                   <string>ISBN: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="isbn_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLabel" name="genre_label">
+                  <property name="text">
+                   <string>GENERO:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="genre_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QLabel" name="author_label">
+                  <property name="text">
+                   <string>AUTOR: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="author_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QPushButton" name="submit_btn">
+                  <property name="text">
+                   <string>Submeter</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="clear_btn">
+                  <property name="text">
+                   <string>Limpar</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="remove_tab">
              <attribute name="title">

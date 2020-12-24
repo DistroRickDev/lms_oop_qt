@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-     access_dialog *new_access = new (access_dialog) ;
+    //access_dialog *new_access = new (access_dialog) ;
 private slots:
 
 };
