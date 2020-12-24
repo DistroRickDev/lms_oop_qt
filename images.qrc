@@ -1,3 +1,5 @@
 <RCC>
-    <qresource prefix="/new/images"/>
+    <qresource prefix="/new/images">
+        <file>media/corbon_fiber_bg.jpg</file>
+    </qresource>
 </RCC>

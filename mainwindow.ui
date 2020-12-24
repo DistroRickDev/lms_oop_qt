@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>637</width>
-    <height>446</height>
+    <width>1041</width>
+    <height>632</height>
    </rect>
   </property>
   <property name="font">
@@ -22,7 +22,21 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true"> *{
+	font-family: sans-serif;
+	/*background: #353535;*/
+	background-image: url(:/new/images/media/corbon_fiber_bg.jpg);
+	color: #f8ad47;
+}
+#books_tab , #admin_book_tab, #info_tab, #add_tab, #remove_tab {
+	background: #353535;
+}
+#MainMenuLabel{
+	max-height: 4em;
+	background: transparent;
+	color: #f8ad47;
+	font: 50 30pt &quot;Fira Sans Condensed&quot;;
+}</string>
   </property>
   <property name="animated">
    <bool>true</bool>
@@ -31,16 +45,17 @@
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="MainMenuLabel">
         <property name="font">
          <font>
-          <family>sans-serif</family>
-          <pointsize>25</pointsize>
-          <weight>50</weight>
+          <family>Fira Sans Condensed</family>
+          <pointsize>30</pointsize>
+          <weight>6</weight>
+          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
@@ -54,6 +69,9 @@
       </item>
       <item>
        <widget class="QTabWidget" name="tabWidget">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="font">
          <font>
           <family>sans-serif</family>
@@ -63,16 +81,40 @@
          </font>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
-        <widget class="QWidget" name="tab">
+        <widget class="QWidget" name="books_tab">
          <attribute name="title">
-          <string>Tab 1</string>
+          <string>Livros (U/A)</string>
          </attribute>
         </widget>
-        <widget class="QWidget" name="tab_2">
+        <widget class="QWidget" name="admin_book_tab">
          <attribute name="title">
-          <string>Tab 2</string>
+          <string>Registar/Remover Livro (A)</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QTabWidget" name="tabWidget_2">
+            <property name="currentIndex">
+             <number>0</number>
+            </property>
+            <widget class="QWidget" name="add_tab">
+             <attribute name="title">
+              <string>Registar Livro</string>
+             </attribute>
+            </widget>
+            <widget class="QWidget" name="remove_tab">
+             <attribute name="title">
+              <string>Remover Livro</string>
+             </attribute>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="info_tab">
+         <attribute name="title">
+          <string>Informação(U/A)</string>
          </attribute>
         </widget>
        </widget>

@@ -7,9 +7,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
 {
     ui->setupUi(this);
     this->setWindowTitle("Book Management System"); //Sets main window title
-    this->setFixedSize(640, 480); //sets max window width to 600px height to 400px
-    new_access->setFixedSize(640, 480); //sets max window width to 600px height to 400px
-    new_access->show();
+    //this->setFixedSize(1280, 720); //sets max window width to 600px height to 400px
+
+    //new_access->setFixedSize(640, 480); //sets max window width to 600px height to 400px
+    //new_access->show();
 
 }
 
