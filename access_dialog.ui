@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>access_dialog</class>
+ <widget class="QDialog" name="access_dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>579</width>
+    <height>395</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"> *{
+	font-family: sans-serif;
+	background: #353535;
+}
+
+#frame{
+		background: #494949;
+		margin: 3em;
+}
+
+#label{
+	max-height: 4em;
+	background: transparent;
+	color: #f8ad47;
+	font: 25 30pt &quot;Fira Sans Condensed&quot;;
+}
+
+#admin_btn, #user_btn, #register_btn
+{
+	 margin-top: 1em;
+    margin-right: 0;
+	color: #f8ad47;
+    background-color:  #3f3b3c;
+	padding:  .8em .2em; 
+	border-radius:1.2em;
+}</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Access Panel</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="admin_btn">
+          <property name="text">
+           <string>ADMINISTRADOR</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="user_btn">
+          <property name="text">
+           <string>UTILIZADOR</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="register_btn">
+          <property name="text">
+           <string>REGISTAR</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
