@@ -22,7 +22,12 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true"> *{
+	font-family: sans-serif;
+	background: #353535;
+	color: #f8ad47;
+}
+ </string>
   </property>
   <property name="animated">
    <bool>true</bool>
@@ -67,7 +72,7 @@
         </property>
         <widget class="QWidget" name="tab">
          <attribute name="title">
-          <string>Tab 1</string>
+          <string>Livros (U/A)</string>
          </attribute>
         </widget>
         <widget class="QWidget" name="tab_2">
