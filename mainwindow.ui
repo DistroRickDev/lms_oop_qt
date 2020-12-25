@@ -24,8 +24,7 @@
   <property name="styleSheet">
    <string notr="true"> *{
 	font-family: sans-serif;
-	/*background: #353535;*/
-	background-image: url(:/new/images/media/corbon_fiber_bg.jpg);
+	background: #222;
 	color: #f8ad47;
 }
 
@@ -59,7 +58,7 @@ QPushButton:hover{
 	border: 1px solid #f8ad47;
 }
 
-#books_tab , #admin_book_tab, #info_tab, #add_tab, #remove_tab {
+#books_tab , #admin_book_tab, #info_tab, #add_tab, #remove_tab, #edit_tab{
 	background: #353535;
 }
 
@@ -128,22 +127,22 @@ QPushButton:hover{
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
-          <string>Livros (U/A)</string>
+          <string>Books (U/A)</string>
          </attribute>
         </widget>
         <widget class="QWidget" name="admin_book_tab">
          <attribute name="title">
-          <string>Registar/Remover Livro (A)</string>
+          <string>Library Management(A)</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="add_tab">
              <attribute name="title">
-              <string>Registar Livro</string>
+              <string>Register Book</string>
              </attribute>
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
@@ -151,7 +150,7 @@ QPushButton:hover{
                 <item>
                  <widget class="QLabel" name="title_label">
                   <property name="text">
-                   <string>TITULO: </string>
+                   <string>TITLE:</string>
                   </property>
                  </widget>
                 </item>
@@ -179,7 +178,7 @@ QPushButton:hover{
                 <item>
                  <widget class="QLabel" name="genre_label">
                   <property name="text">
-                   <string>GENERO:</string>
+                   <string>GENRE:</string>
                   </property>
                  </widget>
                 </item>
@@ -193,7 +192,7 @@ QPushButton:hover{
                 <item>
                  <widget class="QLabel" name="author_label">
                   <property name="text">
-                   <string>AUTOR: </string>
+                   <string>AUTHOR:</string>
                   </property>
                  </widget>
                 </item>
@@ -224,7 +223,12 @@ QPushButton:hover{
             </widget>
             <widget class="QWidget" name="remove_tab">
              <attribute name="title">
-              <string>Remover Livro</string>
+              <string>Remove Book</string>
+             </attribute>
+            </widget>
+            <widget class="QWidget" name="edit_tab">
+             <attribute name="title">
+              <string>Edit Entry</string>
              </attribute>
             </widget>
            </widget>
@@ -233,7 +237,7 @@ QPushButton:hover{
         </widget>
         <widget class="QWidget" name="info_tab">
          <attribute name="title">
-          <string>Informação(U/A)</string>
+          <string>Account Info(U/A)</string>
          </attribute>
         </widget>
        </widget>
