@@ -37,6 +37,7 @@ QTabBar::tab {
     border-top-right-radius: 4px;
 }
 
+
 QTabBar::tab:selected {
     color: #f8ad47;
 }
@@ -68,9 +69,9 @@ QPushButton:hover{
 }
 
 
-#title_input , #isbn_input, #genre_input, #author_input {
+QLineEdit{
 	background: #D3D3D3;
-	color: #f8ad47;
+	color: #000;
 }
 
 #MainMenuLabel{
@@ -138,7 +139,7 @@ QPushButton:hover{
           <item>
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="add_tab">
              <attribute name="title">

@@ -11,7 +11,11 @@ public:
     library_books(QString a, uint64_t i, QString g, QString t, int id):Book (a, i, g, t){
         this->book_id = id;
     }
-
+    QString get_author();
+    uint64_t get_isbn();
+    QString get_genre();
+    QString get_title();
+    int get_id();
 };
 
 class library_roles
