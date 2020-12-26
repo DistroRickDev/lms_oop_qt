@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1041</width>
+    <height>632</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>sans-serif</family>
+    <pointsize>20</pointsize>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"> *{
+	font-family: sans-serif;
+	background: #222;
+	color: #f8ad47;
+}
+
+QTabBar::tab {
+    background: #353535;
+    min-width: 8ex;
+    padding: 2px;
+	border: 2px solid #808080;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+
+QTabBar::tab:selected {
+    color: #f8ad47;
+}
+
+QTabBar::tab:!selected {
+    margin-top: 2px; /* make non-selected tabs look smaller */
+}
+
+QPushButton{
+	margin-top: 1em;
+    margin-right: 0;
+	color: #f8ad47;
+    background:  #3f3b3c;
+	padding:  .8em .2em; 
+	border-radius:1.2em;
+}
+
+QPushButton:hover{
+	border: 1px solid #f8ad47;
+}
+
+#books_tab , #admin_book_tab, #info_tab, #add_tab, #remove_tab, #edit_tab{
+	background: #353535;
+}
+
+
+#title_label , #isbn_label, #genre_label, #author_label {
+	background: #353535;
+}
+
+
+QLineEdit{
+	background: #D3D3D3;
+	color: #000;
+}
+
+#MainMenuLabel{
+	max-height: 4em;
+	background: transparent;
+	color: #f8ad47;
+	font: 50 30pt &quot;Fira Sans Condensed&quot;;
+}
+
+QRadioButton, #remove_label{
+	background: transparent;
+}</string>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="MainMenuLabel">
+        <property name="font">
+         <font>
+          <family>Fira Sans Condensed</family>
+          <pointsize>30</pointsize>
+          <weight>6</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Menu</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="font">
+         <font>
+          <family>sans-serif</family>
+          <pointsize>12</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="currentIndex">
+         <number>1</number>
+        </property>
+        <widget class="QWidget" name="books_tab">
+         <attribute name="title">
+          <string>Books (U/A)</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="admin_book_tab">
+         <attribute name="title">
+          <string>Library Management(A)</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QTabWidget" name="tabWidget_2">
+            <property name="currentIndex">
+             <number>1</number>
+            </property>
+            <widget class="QWidget" name="add_tab">
+             <attribute name="title">
+              <string>Register Book</string>
+             </attribute>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="title_label">
+                  <property name="text">
+                   <string>TITLE:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="title_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QLabel" name="isbn_label">
+                  <property name="text">
+                   <string>ISBN: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="isbn_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QLabel" name="genre_label">
+                  <property name="text">
+                   <string>GENRE:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="genre_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QLabel" name="author_label">
+                  <property name="text">
+                   <string>AUTHOR:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="author_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QPushButton" name="submit_btn">
+                  <property name="text">
+                   <string>Submeter</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="clear_btn">
+                  <property name="text">
+                   <string>Limpar</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="remove_tab">
+             <attribute name="title">
+              <string>Remove Book</string>
+             </attribute>
+             <widget class="QPushButton" name="remove_btn">
+              <property name="geometry">
+               <rect>
+                <x>80</x>
+                <y>240</y>
+                <width>141</width>
+                <height>71</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+             </widget>
+             <widget class="QWidget" name="">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>10</y>
+                <width>164</width>
+                <height>122</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QLabel" name="remove_label">
+                 <property name="text">
+                  <string>Search Entry By:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <item>
+                  <widget class="QRadioButton" name="title_filter_rb">
+                   <property name="text">
+                    <string>Title</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="title_filter_cb"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <item>
+                  <widget class="QRadioButton" name="isbn_filter_rb">
+                   <property name="text">
+                    <string>ISBN</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="isbn_filter_cb"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QRadioButton" name="id_filter_rb">
+                   <property name="text">
+                    <string>ID</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="id_filter_cb"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+            <widget class="QWidget" name="edit_tab">
+             <attribute name="title">
+              <string>Edit Entry</string>
+             </attribute>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="info_tab">
+         <attribute name="title">
+          <string>Account Info(U/A)</string>
+         </attribute>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
