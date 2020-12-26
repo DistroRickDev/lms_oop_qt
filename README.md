@@ -3,5 +3,5 @@
 ## Preview
 The following repo is a library management system software, developed using **Qt** to be able to develop a *ui* with __*QtWidgets*__ and programmed in __*C++*__.
 
-##Origin
-This project came under the scope of the academic unit of *object-oriented programming*, at the course of *Electrical and Computers Engineering* at [__*IPCA*__ ](https://ipca.pt/en/)
+## Origin
+This project came under the scope of the academic unit of *object-oriented programming*, at the course of *[Electrotechnical and Computer Engineering]*(https://est.ipca.pt/en/curso/electrotechnical-and-computer/) at [__*IPCA*__ ](https://ipca.pt/en/)
