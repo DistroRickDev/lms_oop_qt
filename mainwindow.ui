@@ -64,7 +64,7 @@ QPushButton:hover{
 }
 
 
-#title_label , #isbn_label, #genre_label, #author_label {
+#title_label , #isbn_label, #genre_label, #author_label , #id_label{
 	background: #353535;
 }
 
@@ -79,6 +79,10 @@ QLineEdit{
 	background: transparent;
 	color: #f8ad47;
 	font: 50 30pt &quot;Fira Sans Condensed&quot;;
+}
+
+QRadioButton, #remove_label{
+	background: transparent;
 }</string>
   </property>
   <property name="animated">
@@ -139,7 +143,7 @@ QLineEdit{
           <item>
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="add_tab">
              <attribute name="title">
@@ -203,6 +207,20 @@ QLineEdit{
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <item>
+                 <widget class="QLabel" name="id_label">
+                  <property name="text">
+                   <string>ID: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="id_input"/>
+                </item>
+               </layout>
+              </item>
+              <item>
                <layout class="QHBoxLayout" name="horizontalLayout_5">
                 <item>
                  <widget class="QPushButton" name="submit_btn">
@@ -226,6 +244,80 @@ QLineEdit{
              <attribute name="title">
               <string>Remove Book</string>
              </attribute>
+             <widget class="QPushButton" name="remove_btn">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>380</y>
+                <width>141</width>
+                <height>71</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>Remove Entry</string>
+              </property>
+             </widget>
+             <widget class="QWidget" name="">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>10</y>
+                <width>164</width>
+                <height>122</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_4">
+               <item>
+                <widget class="QLabel" name="remove_label">
+                 <property name="text">
+                  <string>Search Entry By:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <item>
+                  <widget class="QRadioButton" name="title_filter_rb">
+                   <property name="text">
+                    <string>Title</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="title_filter_cb"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <item>
+                  <widget class="QRadioButton" name="isbn_filter_rb">
+                   <property name="text">
+                    <string>ISBN</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="isbn_filter_cb"/>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QRadioButton" name="id_filter_rb">
+                   <property name="text">
+                    <string>ID</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="id_filter_cb"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
             </widget>
             <widget class="QWidget" name="edit_tab">
              <attribute name="title">

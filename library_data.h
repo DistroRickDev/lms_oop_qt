@@ -5,16 +5,21 @@
 
 class library_books: protected Book
 {
-private:
+protected:
     int book_id;
+    bool availability; //if true is available else is not available
+    int number_of_copies;
 public:
-    library_books(QString a, uint64_t i, QString g, QString t, int id):Book (a, i, g, t){
+    library_books(QString a, uint64_t i, QString g, QString t, int id, int num_c = 1):Book (a, i, g, t){
         this->book_id = id;
+        availability = true;
     }
     QString get_author();
     uint64_t get_isbn();
     QString get_genre();
     QString get_title();
+    bool get_availability();
+    int get_number_of_copies();
     int get_id();
 };
 
