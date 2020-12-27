@@ -11,3 +11,4 @@ This project came under the scope of the academic unit of *object-oriented progr
     1.1 LIBRARY BOOKS *(enherits books, adds an ID, Avaialability status, amount of books)*
   
 
+GitHub badge	/github/license/:user/:repo
