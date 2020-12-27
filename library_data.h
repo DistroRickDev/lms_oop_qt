@@ -10,9 +10,10 @@ protected:
     bool availability; //if true is available else is not available
     int number_of_copies;
 public:
-    library_books(QString a, uint64_t i, QString g, QString t, int id, int num_c = 1):Book (a, i, g, t){
+    library_books(QString a, uint64_t i, QString g, QString t, int id, int num_c = 1, bool availability = true):Book (a, i, g, t){
         this->book_id = id;
-        availability = true;
+        this->availability = availability;
+        number_of_copies = num_c;
     }
     QString get_author();
     uint64_t get_isbn();

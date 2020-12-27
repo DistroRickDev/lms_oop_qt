@@ -35,12 +35,19 @@ void MainWindow::loadMap()
 
     while(!in.atEnd()){
         int id = 0;
+        int num;
+        bool av = true;
         id = in.readLine().toULong();
         QString t = in.readLine();
         QString a = in.readLine();
         QString g = in.readLine();
         int i = in.readLine().toULong();
-        library_books new_book(a,i,g,t,id,1);
+        num = in.readLine().toULong();
+        QString avail = in.readLine();
+        if (avail == "false"){
+               av = false;
+        }
+        library_books new_book(a,i,g,t,id,num);
         bMap.insert(id, new_book);
         //qDebug() << "iterated";
     }
@@ -150,7 +157,9 @@ void MainWindow::write_to_file()
         out << it.get_title() << Qt::endl;
         out << it.get_author()<< Qt::endl;
         out << it.get_genre()<< Qt::endl;
-        out << it.get_isbn()<< Qt::endl;   
+        out << it.get_isbn()<< Qt::endl;
+        out << it.get_number_of_copies() << Qt::endl;
+        out << it.get_availability() << Qt::endl;
     }
     book_io.close();
     qDebug() << "FILE WRITTEN" << Qt::endl;
@@ -175,6 +184,8 @@ void MainWindow::print_map()
         qDebug() << "ISBN:" << it.get_isbn();
         qDebug() << "Genre" << it.get_genre();
         qDebug() << "Book ID" << it.get_id();
+        qDebug() << "Number of Copies" << it.get_number_of_copies();
+        qDebug() << "Availability" << it.get_availability();
         //qDebug() << Qt::endl;
     }
 }
