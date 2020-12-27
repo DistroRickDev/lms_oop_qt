@@ -9,6 +9,6 @@ This project came under the scope of the academic unit of *object-oriented progr
 # Architecture
   1. BOOK *(base classe)*
     1.1 LIBRARY BOOKS *(enherits books, adds an ID, Avaialability status, amount of books)*
+  *to be continued*
   
-
-GitHub issues:	GitHub issues badge	https://img.shields.io/github/issues/RetroRick/lms_oop_qt
+  #License
