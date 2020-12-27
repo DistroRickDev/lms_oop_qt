@@ -82,6 +82,6 @@ void MainWindow::print_map()
         qDebug() << "ISBN:" << it.get_isbn();
         qDebug() << "Genre" << it.get_genre();
         qDebug() << "Book ID" << it.get_id();
-        qDebug() << Qt::endl;
+        //qDebug() << Qt::endl;
     }
 }
