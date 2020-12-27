@@ -27,6 +27,7 @@ private:
 
     //Add library books
      QMap<int, library_books> bMap;
+     void loadMap();
      void print_map();
      void write_to_file();
 

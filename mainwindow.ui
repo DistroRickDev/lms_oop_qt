@@ -82,7 +82,7 @@ QLineEdit{
 }
 
 QRadioButton, #remove_label{
-	background: transparent;
+	background: #353535;
 }</string>
   </property>
   <property name="animated">
@@ -225,14 +225,14 @@ QRadioButton, #remove_label{
                 <item>
                  <widget class="QPushButton" name="submit_btn">
                   <property name="text">
-                   <string>Submeter</string>
+                   <string>Submit</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="clear_btn">
                   <property name="text">
-                   <string>Limpar</string>
+                   <string>Clear</string>
                   </property>
                  </widget>
                 </item>
@@ -257,7 +257,7 @@ QRadioButton, #remove_label{
                <string>Remove Entry</string>
               </property>
              </widget>
-             <widget class="QWidget" name="">
+             <widget class="QWidget" name="layoutWidget">
               <property name="geometry">
                <rect>
                 <x>10</x>
