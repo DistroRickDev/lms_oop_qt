@@ -11,4 +11,4 @@ This project came under the scope of the academic unit of *object-oriented progr
     1.1 LIBRARY BOOKS *(enherits books, adds an ID, Avaialability status, amount of books)*
   
 
-https://img.shields.io/github/license/RetroRick/lms_oop_qt
+.. image:: https://img.shields.io/github/license/RetroRick/lms_oop_qt   :alt: GitHub
