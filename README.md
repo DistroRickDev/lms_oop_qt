@@ -10,6 +10,7 @@ This project came under the scope of the academic unit of *object-oriented progr
   1. BOOK *(base classe)*
     1.1 LIBRARY BOOKS *(enherits books, adds an ID, Avaialability status, amount of books)*
   *to be continued*
+ ![alt text](https://drive.google.com/file/d/1qWEdaoEvYy8KoF5OD8o6wDZBIWfkefaC/view?usp=sharing)
   
 ## License
 Copyright 2020 [MIT](https://choosealicense.com/licenses/mit/)
