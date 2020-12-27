@@ -33,7 +33,7 @@ void MainWindow::loadMap()
         int i = in.readLine().toULong();
         library_books new_book(a,i,g,t,id,1);
         bMap.insert(id, new_book);
-        qDebug() << "iterated";
+        //qDebug() << "iterated";
     }
     books_file.close();
 }
