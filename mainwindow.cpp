@@ -43,11 +43,12 @@ void MainWindow::loadMap()
         QString g = in.readLine();
         int i = in.readLine().toULong();
         num = in.readLine().toULong();
-        QString avail = in.readLine();
-        if (avail == "false"){
+        int avail = in.readLine().toInt();
+        //qDebug() << "DEBUG AVAIL: " <<avail;
+        if (avail == 0){
                av = false;
         }
-        library_books new_book(a,i,g,t,id,num);
+        library_books new_book(a,i,g,t,id,num, av);
         bMap.insert(id, new_book);
         //qDebug() << "iterated";
     }
@@ -134,11 +135,9 @@ void MainWindow::toggle_id_cb()
     if(ui->id_filter_rb->isChecked())
     {
         ui->id_filter_cb->setEnabled(true);
-        qDebug() << "Is true";
     }
     else{
         ui->id_filter_cb->setEnabled(false);
-        qDebug() << "Is false";
     }
 }
 
