@@ -26,12 +26,19 @@ private:
     Ui::MainWindow *ui;
 
     //Add library books
-     QMap<int, library_books> bMap;
-     void loadMap();
-     void print_map();
-     void write_to_file();
+    QMap<int, library_books> bMap;
+    //Map <-> IO functions
+    void loadMap();
+    void print_map();
+    void write_to_file();
+    //load combo box function
+    void loadComboBox();
 
 private slots:
     void submit_btn_clicked();
+    void update_by_filter();
+    void toggle_title_cb();
+    void toggle_isbn_cb();
+    void toggle_id_cb();
 };
 #endif // MAINWINDOW_H
