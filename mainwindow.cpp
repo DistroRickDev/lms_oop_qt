@@ -61,6 +61,7 @@ void MainWindow::loadMap()
 
     QTextStream in(&books_file);
     while(!in.atEnd()){
+
         int num;
         bool av = true;
         QString tit = in.readLine();
