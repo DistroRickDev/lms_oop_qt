@@ -41,7 +41,6 @@ private slots:
     void update_by_filter();
     void toggle_title_cb();
     void toggle_isbn_cb();
-    void toggle_id_cb();
     void clear_lineEdit();
 };
 
