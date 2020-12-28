@@ -27,10 +27,12 @@ private:
 
     //Add library books
     QMap<int, library_books> bMap;
+
     //Map <-> IO functions
     void loadMap();
     void print_map();
     void write_to_file();
+
     //load combo box function
     void loadComboBox();
 
@@ -40,5 +42,7 @@ private slots:
     void toggle_title_cb();
     void toggle_isbn_cb();
     void toggle_id_cb();
+    void clear_lineEdit();
 };
+
 #endif // MAINWINDOW_H

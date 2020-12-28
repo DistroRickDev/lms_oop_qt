@@ -23,7 +23,7 @@ public:
     int get_number_of_copies();
     int get_id();
 };
-
+/*
 class library_roles
 {
 protected:
@@ -39,6 +39,6 @@ public:
 class library_members: library_roles {
     QString name;
     int age;
-};
+};*/
 
 #endif // LIBRARY_DATA_H

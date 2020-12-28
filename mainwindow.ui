@@ -28,6 +28,7 @@
 	color: #f8ad47;
 }
 
+
 QTabBar::tab {
     background: #353535;
     min-width: 8ex;
@@ -43,8 +44,8 @@ QTabBar::tab:selected {
 }
 
 QTabBar::tab:!selected {
-    margin-top: 2px; /* make non-selected tabs look smaller */
-}
+    margin-top: 2px; /* make non-selected tabs look smaller*/
+} 
 
 QPushButton{
 	margin-top: 1em;
@@ -83,6 +84,10 @@ QLineEdit{
 
 QRadioButton, #remove_label{
 	background: #353535;
+}
+
+QComboBox:disabled{
+	color: gray;
 }</string>
   </property>
   <property name="animated">
@@ -143,7 +148,7 @@ QRadioButton, #remove_label{
           <item>
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="add_tab">
              <attribute name="title">

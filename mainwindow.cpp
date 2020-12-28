@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
 
     //Connections
     connect(ui->submit_btn, &QPushButton::clicked, this, &MainWindow::submit_btn_clicked);
+    connect(ui->clear_btn, &QPushButton::clicked, this, &MainWindow::clear_lineEdit);
     connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
     connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
     connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_cb);
@@ -68,6 +69,7 @@ void MainWindow::submit_btn_clicked()
     write_to_file();
     loadComboBox();
     print_map();
+    clear_lineEdit();
 }
 
 void MainWindow::update_by_filter()
@@ -141,6 +143,15 @@ void MainWindow::toggle_id_cb()
     }
 }
 
+void MainWindow::clear_lineEdit()
+{
+    ui->title_input->clear();
+    ui->author_input->clear();
+    ui->isbn_input->clear();
+    ui->genre_input->clear();
+    ui->id_input->clear();
+}
+
 void MainWindow::write_to_file()
 {
     QFile book_io("books.txt");
@@ -166,6 +177,9 @@ void MainWindow::write_to_file()
 
 void MainWindow::loadComboBox()
 {
+    ui->title_filter_cb->clear();
+    ui->isbn_filter_cb->clear();
+    ui->id_filter_cb->clear();
     for(auto i : bMap)
     {
         ui->title_filter_cb->addItem(i.get_title());
