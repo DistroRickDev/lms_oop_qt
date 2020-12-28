@@ -90,14 +90,14 @@ void MainWindow::submit_btn_clicked()
     // library_books(QString a, uint64_t i, QString g, QString t, QString e, int y, int num_c = 1, bool availability = true, QString li="N/A", QString sg ="N/A"):Book (a, i, g, t, e, y)
     library_books new_book(ui->author_input->text(),
                            ui->isbn_input->text().toULong(),
-                           ui->genre_input->text(),
+                           ui->genre_cb->currentText(),
                            ui->title_input->text(),
                            ui->publisher_input->text(),
                            ui->edition_year_date->text().toInt(),
                            ui->qty_sb->text().toInt(),
                            true,
                            ui->library_id_input->text(),
-                           ui->subgenre_input->text());
+                           ui->subgenre_cb->currentText());
 
     bMap.insert(ui->isbn_input->text().toULong(), new_book);
     write_to_file();
@@ -159,7 +159,7 @@ void MainWindow::clear_lineEdit()
     ui->title_input->clear();
     ui->author_input->clear();
     ui->isbn_input->clear();
-    ui->genre_input->clear();
+    //ui->genre_input->clear();
 }
 
 
