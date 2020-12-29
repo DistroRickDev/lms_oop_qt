@@ -2,10 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMap>
+//#include <QMap>
+//#include <QVector>
 #include <QDebug>
 #include <QFile>
-#include <QTimer>
+//#include <QTimer>
 #include "access_dialog.h"
 #include "library_data.h"
 
@@ -28,13 +29,18 @@ private:
     //Add library books
     QMap<int, library_books> bMap;
 
+    QMap<QString, QString[]> bgs;
+
     //Map <-> IO functions
     void loadMap();
     void print_map();
     void write_to_file();
 
     //load combo box function
-    void loadComboBox();
+    void loadFilterComboBox();
+    void loadGenreComboBox();
+    void loadSubGenreComboBox();
+    void build_bgs();
 
 private slots:
     void submit_btn_clicked();

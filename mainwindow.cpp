@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     //Init Functions
     loadMap();
     print_map();
-    loadComboBox();
+    loadFilterComboBox();
 }
 
 MainWindow::~MainWindow()
@@ -102,7 +102,7 @@ void MainWindow::submit_btn_clicked()
 
     bMap.insert(ui->isbn_input->text().toULong(), new_book);
     write_to_file();
-    loadComboBox();
+    loadFilterComboBox();
     print_map();
     clear_lineEdit();
 }
@@ -159,12 +159,13 @@ void MainWindow::clear_lineEdit()
 {
     ui->title_input->clear();
     ui->author_input->clear();
+    ui->publisher_input->clear();
     ui->isbn_input->clear();
-    //ui->genre_input->clear();
+    ui->library_id_input->clear();
 }
 
 
-void MainWindow::loadComboBox()
+void MainWindow::loadFilterComboBox()
 {
     ui->title_filter_cb->clear();
     ui->isbn_filter_cb->clear();
@@ -172,8 +173,26 @@ void MainWindow::loadComboBox()
     {
         ui->title_filter_cb->addItem(i.get_title());
         ui->isbn_filter_cb->addItem(QString::number(i.get_isbn()));
-        //ui->id_filter_cb->addItem(QString::number(i.get_id()));
     }
+}
+
+void MainWindow::loadGenreComboBox()
+{
+
+}
+
+void MainWindow::loadSubGenreComboBox()
+{
+
+}
+
+void MainWindow::build_bgs()
+{
+    QString g[2] = {"Fiction", "Non-Fiction"};
+    QString sg2[5]= {"Art/architecture", "Autobiography/Biography", "Business/economics", "Encyclopedia", "Philosophy"};
+    QString sg1[5]= {"Crime", "Fairy Tail", "Thriller", "Science Ficiton", "Graphic novel"};
+    //bgs.insert(g[0], sg1);
+
 }
 
 void MainWindow::print_map()
@@ -181,9 +200,12 @@ void MainWindow::print_map()
     for(auto it : bMap){
         qDebug() << "Title" << it.get_title();
         qDebug() << "Author:" << it.get_author();
-        qDebug() << "ISBN:" << it.get_isbn();
         qDebug() << "Genre" << it.get_genre();
-        //qDebug() << "Book ID" << it.get_id();
+        qDebug() << "SubGenre" << it.get_subgenre();
+        qDebug() << "Publisher:" << it.get_publisher();
+        qDebug() << "ISBN:" << it.get_isbn();
+        qDebug() << "Edition Year" << it.get_edition_year();
+        qDebug() << "Library ID:" << it.get_library_id();
         qDebug() << "Number of Copies" << it.get_number_of_copies();
         qDebug() << "Availability" << it.get_availability();
         //qDebug() << Qt::endl;

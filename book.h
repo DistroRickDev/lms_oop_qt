@@ -14,6 +14,7 @@ protected:
     QString publisher;
     int edition_year;
 
+
 public:
     Book(QString author = "N/A", uint64_t isbn = 000000000, QString genre = "N/A", QString title = "UNTITLED", QString publisher="N/A", int yoe = 2000);
 
