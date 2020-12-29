@@ -10,8 +10,8 @@ This project came under the scope of the academic unit of *object-oriented progr
   1. BOOK *(base classe)*
     1.1 LIBRARY BOOKS *(enherits books, adds an ID, Avaialability status, amount of books)*
   *to be continued*
- ![alt text](https://github.com/RetroRick/lms_oop_qt/blob/main/tp1_add.png)
- ![alt text](https://github.com/RetroRick/lms_oop_qt/blob/main/tp1_remove.png)
+ ![alt text](https://github.com/RetroRick/lms_oop_qt/blob/main/ui.png)
+
   
 ## License
 Copyright 2020 [MIT](https://choosealicense.com/licenses/mit/)
