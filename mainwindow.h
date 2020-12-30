@@ -29,7 +29,7 @@ private:
     //Add library books
     QMap<int, library_books> bMap;
 
-    QMap<QString, QString[]> bgs;
+    QMap<QString, QVector<QString>> bgs;
 
     //Map <-> IO functions
     void loadMap();
@@ -39,7 +39,7 @@ private:
     //load combo box function
     void loadFilterComboBox();
     void loadGenreComboBox();
-    void loadSubGenreComboBox();
+
     void build_bgs();
 
 private slots:
@@ -48,6 +48,7 @@ private slots:
     void toggle_title_cb();
     void toggle_isbn_cb();
     void clear_lineEdit();
+    void loadSubGenreComboBox();
 };
 
 #endif // MAINWINDOW_H

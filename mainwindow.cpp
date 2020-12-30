@@ -12,11 +12,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
     connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
     connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_cb);
+    connect(ui->genre_cb, &QComboBox::currentIndexChanged, this, &MainWindow::loadSubGenreComboBox);
 
     //Init Functions
     loadMap();
     print_map();
     loadFilterComboBox();
+    loadGenreComboBox();
 }
 
 MainWindow::~MainWindow()
@@ -178,21 +180,45 @@ void MainWindow::loadFilterComboBox()
 
 void MainWindow::loadGenreComboBox()
 {
-
+    ui->genre_cb->clear();
+    for(auto it: bgs)
+    {
+        ui->genre_cb->addItem(it.first());
+    }
 }
 
 void MainWindow::loadSubGenreComboBox()
 {
-
+    ui->subgenre_cb->clear();
+    for(auto it: bgs)
+    {
+       if(it.first() == ui->genre_cb->currentText())
+       {
+           qDebug() << it.last();
+       }
+    }
 }
 
 void MainWindow::build_bgs()
 {
     QString g[2] = {"Fiction", "Non-Fiction"};
-    QString sg2[5]= {"Art/architecture", "Autobiography/Biography", "Business/economics", "Encyclopedia", "Philosophy"};
-    QString sg1[5]= {"Crime", "Fairy Tail", "Thriller", "Science Ficiton", "Graphic novel"};
-    //bgs.insert(g[0], sg1);
+    QVector<QString> fic;
+    QVector<QString> non_fic;
 
+    fic.push_front("Crime");
+    fic.push_front("Fairy Tail");
+    fic.push_front("Thriller");
+    fic.push_front("Science Ficiton");
+    fic.push_front("Graphic novel");
+
+    non_fic.push_front("Art/architecture");
+    non_fic.push_front("Autobiography/Biography");
+    non_fic.push_front("Business/economics");
+    non_fic.push_front("Encyclopedia");
+    non_fic.push_front("Philosophy");
+
+    bgs.insert(g[0], fic);
+    bgs.insert(g[1], non_fic);
 }
 
 void MainWindow::print_map()

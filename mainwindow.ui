@@ -142,18 +142,18 @@ QComboBox:disabled{
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
-          <string>Books (U/A)</string>
+          <string>Books Info</string>
          </attribute>
         </widget>
         <widget class="QWidget" name="admin_book_tab">
          <attribute name="title">
-          <string>Library Management(A)</string>
+          <string>Books Management</string>
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="add_tab">
              <attribute name="title">
@@ -481,7 +481,7 @@ QComboBox:disabled{
         </widget>
         <widget class="QWidget" name="info_tab">
          <attribute name="title">
-          <string>Account Info(U/A)</string>
+          <string>Book Requests</string>
          </attribute>
         </widget>
        </widget>
