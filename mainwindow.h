@@ -29,7 +29,7 @@ private:
     //Add library books
     QMap<int, library_books> bMap;
 
-    QMap<QString, QVector<QString>> bgs;
+    QMap<QString, QList<QString>> bgs;
 
     //Map <-> IO functions
     void loadMap();
