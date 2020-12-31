@@ -202,7 +202,7 @@ QComboBox:disabled{
                   <item>
                    <widget class="QComboBox" name="genre_cb">
                     <property name="editable">
-                     <bool>true</bool>
+                     <bool>false</bool>
                     </property>
                    </widget>
                   </item>
@@ -220,7 +220,10 @@ QComboBox:disabled{
                   <item>
                    <widget class="QComboBox" name="subgenre_cb">
                     <property name="editable">
-                     <bool>true</bool>
+                     <bool>false</bool>
+                    </property>
+                    <property name="currentText">
+                     <string notr="true"/>
                     </property>
                    </widget>
                   </item>

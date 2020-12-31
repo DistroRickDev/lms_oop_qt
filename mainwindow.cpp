@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     print_map();
     loadFilterComboBox();
     loadGenreComboBox();
+    loadSubGenreComboBox();
 }
 
 MainWindow::~MainWindow()
@@ -190,12 +191,13 @@ void MainWindow::loadGenreComboBox()
 
 void MainWindow::loadSubGenreComboBox()
 {
+    //qDebug() << "Subgenre called";
     ui->subgenre_cb->clear();
-    for(auto it: bgs)
+    for(auto it = bgs.begin(); it != bgs.end(); it++)
     {
-       if(it.first() == ui->genre_cb->currentText())
+       if(it.key() == ui->genre_cb->currentText())
        {
-           qDebug() << it.last();
+           ui->subgenre_cb->addItems(it.value());
        }
     }
 }
