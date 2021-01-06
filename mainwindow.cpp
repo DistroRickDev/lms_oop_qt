@@ -12,7 +12,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
     connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
     connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_cb);
+<<<<<<< Updated upstream
     connect(ui->genre_cb, &QComboBox::textActivated, this, &MainWindow::loadSubGenreComboBox);
+=======
+    //connect(ui->genre_cb, &QComboBox::currentIndexChanged, this, &MainWindow::loadSubGenreComboBox);
+>>>>>>> Stashed changes
 
     //Init Functions
     loadMap();
