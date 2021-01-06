@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
-    <height>446</height>
+    <width>1049</width>
+    <height>532</height>
    </rect>
   </property>
   <property name="font">
@@ -69,7 +69,7 @@ QLabel{
 	background: #353535;
 }
 
-QSpinBox, QDateEdit, #genre_cb, #subgenre_cb{
+QSpinBox, QDateEdit, #genre_cb, #subgenre_cb, #type_cb{
 	background: #353535;
 	color: #f8ad47;
 }
@@ -102,7 +102,7 @@ QComboBox:disabled{
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_6">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -159,7 +159,7 @@ QComboBox:disabled{
              <attribute name="title">
               <string>Register Book</string>
              </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
+             <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
@@ -191,6 +191,27 @@ QComboBox:disabled{
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_19">
                 <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <item>
+                   <widget class="QLabel" name="type_label">
+                    <property name="text">
+                     <string>TYPE: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="type_cb">
+                    <property name="minimumSize">
+                     <size>
+                      <width>250</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_3">
                   <item>
                    <widget class="QLabel" name="genre_label">
@@ -201,6 +222,12 @@ QComboBox:disabled{
                   </item>
                   <item>
                    <widget class="QComboBox" name="genre_cb">
+                    <property name="minimumSize">
+                     <size>
+                      <width>250</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="editable">
                      <bool>false</bool>
                     </property>
@@ -219,6 +246,12 @@ QComboBox:disabled{
                   </item>
                   <item>
                    <widget class="QComboBox" name="subgenre_cb">
+                    <property name="minimumSize">
+                     <size>
+                      <width>250</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                     <property name="editable">
                      <bool>false</bool>
                     </property>

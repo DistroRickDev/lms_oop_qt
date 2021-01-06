@@ -12,16 +12,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
     connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
     connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_cb);
+    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::loadGenreComboBox);
     connect(ui->genre_cb, &QComboBox::textActivated, this, &MainWindow::loadSubGenreComboBox);
-
-
 
     //Init Functions
     loadMap();
     print_map();
     loadFilterComboBox();
-    loadGenreComboBox();
-    loadSubGenreComboBox();
+    loadTypeComboBox();
+    //loadGenreComboBox();
+    //loadSubGenreComboBox();
 }
 
 MainWindow::~MainWindow()
@@ -54,6 +54,40 @@ void MainWindow::write_to_file()
     }
     book_io.close();
     qDebug() << "FILE WRITTEN" << Qt::endl;
+}
+
+void MainWindow::buildbTypes()
+{
+    QString booktypes[] = {"Books in Portuguese", "Books in Other Languages", "SchoolBooks"};
+    for (int i= 0;i<3 ;i++ ) {
+        bTypes.append(booktypes[i]);
+    }
+}
+
+void MainWindow::buildbGenres()
+{
+
+}
+
+void MainWindow::buildbSubGenres()
+{
+
+}
+
+void MainWindow::buildbSGenres()
+{
+
+}
+
+void MainWindow::buildbSSubGenres()
+{
+
+}
+
+void MainWindow::loadTypeComboBox()
+{
+    buildbTypes();
+    ui->type_cb->addItems(bTypes);
 }
 
 
@@ -183,47 +217,15 @@ void MainWindow::loadFilterComboBox()
 
 void MainWindow::loadGenreComboBox()
 {
-    build_bgs();
-    ui->genre_cb->clear();
-    for(auto it = bgs.begin(); it != bgs.end(); it++)
-    {
-        ui->genre_cb->addItem(it.key());
-    }
+
 }
 
 void MainWindow::loadSubGenreComboBox()
 {
     //qDebug() << "Subgenre called";
-    ui->subgenre_cb->clear();
-    for(auto it = bgs.begin(); it != bgs.end(); it++)
-    {
-       if(it.key() == ui->genre_cb->currentText())
-       {
-           ui->subgenre_cb->addItems(it.value());
-       }
-    }
+
 }
 
-void MainWindow::build_bgs()
-{
-    QList<QString> fic;
-    QList<QString> non_fic;
-
-    fic.append("Crime");
-    fic.append("Fairy Tail");
-    fic.append("Thriller");
-    fic.append("Science Ficiton");
-    fic.append("Graphic novel");
-
-    non_fic.append("Art/architecture");
-    non_fic.append("Autobiography/Biography");
-    non_fic.append("Business/economics");
-    non_fic.append("Encyclopedia");
-    non_fic.append("Philosophy");
-
-    bgs.insert("Fiction", fic);
-    bgs.insert("Non Fiction", non_fic);
-}
 
 void MainWindow::print_map()
 {

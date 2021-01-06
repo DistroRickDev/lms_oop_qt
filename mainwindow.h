@@ -29,18 +29,33 @@ private:
     //Add library books
     QMap<int, library_books> bMap;
 
-    QMap<QString, QList<QString>> bgs;
+    // TYPE -> GENRE -> SUBGENRE
+    QStringList bTypes;
+
+    QStringList bGenres;  //other types
+    QStringList bSubGenres; //other types
+
+    QStringList bSGenres; //type school
+    QStringList bSSubGenres; //type school
 
     //Map <-> IO functions
     void loadMap();
     void print_map();
     void write_to_file();
 
-    //load combo box function
-    void loadFilterComboBox();
-    void loadGenreComboBox();
+    //Build QStringLists
+    void buildbTypes();
 
-    void build_bgs();
+    void buildbGenres();
+    void buildbSubGenres();
+
+    void buildbSGenres();
+    void buildbSSubGenres();
+
+    //load combo box function
+    void loadTypeComboBox();
+    void loadFilterComboBox();
+
 
 private slots:
     void submit_btn_clicked();
@@ -48,6 +63,7 @@ private slots:
     void toggle_title_cb();
     void toggle_isbn_cb();
     void clear_lineEdit();
+    void loadGenreComboBox();
     void loadSubGenreComboBox();
 };
 
