@@ -9,10 +9,13 @@ class Book
 protected:
     QString title;
     QString author;
+    QString type;
     QString genre;
-    uint64_t isbn;
+    QString sub_genre;
     QString publisher;
     int edition_year;
+    uint64_t isbn;
+    double library_id;
 
 
 public:
