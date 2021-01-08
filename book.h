@@ -19,7 +19,7 @@ protected:
 
 
 public:
-    Book(QString author = "N/A", uint64_t isbn = 000000000, QString genre = "N/A", QString title = "UNTITLED", QString publisher="N/A", int yoe = 2000);
+    Book(QString title = "UNTITLED", QString author = "N/A", QString type = "N/A", QString genre = "N/A", QString sub_genre = "N/A", QString publisher="N/A", uint64_t isbn = 000000000, int yoe = 2000);
 
    // ~Book();
 };
