@@ -15,8 +15,6 @@ protected:
     QString publisher;
     int edition_year;
     uint64_t isbn;
-    double library_id;
-
 
 public:
     Book(QString title = "UNTITLED", QString author = "N/A", QString type = "N/A", QString genre = "N/A", QString sub_genre = "N/A", QString publisher="N/A", uint64_t isbn = 000000000, int yoe = 2000);

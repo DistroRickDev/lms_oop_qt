@@ -9,18 +9,18 @@ protected:
     bool availability; //if true is available else is not available
     int number_of_copies;
     QString library_id;
-    QString sub_genre;
 public:
-    library_books(QString a, uint64_t i, QString g, QString t, QString e, int y, int num_c = 1, bool availability = true, QString li="N/A", QString sg ="N/A"):Book (a, i, g, t, e, y){
+    library_books(QString title, QString author,QString type, QString genre, QString subgenre,QString publisher, uint64_t isbn, int year,
+                  int num_c = 1, bool availability = true, QString li="N/A"):Book (title, author, type, genre, subgenre, publisher,isbn, year){
         this->availability = availability;
         number_of_copies = num_c;
         library_id = li;
-        sub_genre = sg;
     }
     //~library_books();
 
     QString get_author();
     uint64_t get_isbn();
+    QString get_type();
     QString get_genre();
     QString get_title();
     QString get_subgenre();
@@ -29,6 +29,9 @@ public:
     bool get_availability();
     int get_number_of_copies();
     int get_edition_year();
+
+    //generate library id
+    void add_library_id();
 };
 
 

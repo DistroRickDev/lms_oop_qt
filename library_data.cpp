@@ -10,6 +10,11 @@ uint64_t library_books::get_isbn()
     return isbn;
 }
 
+QString library_books::get_type()
+{
+    return type;
+}
+
 QString library_books::get_genre()
 {
     return genre;
@@ -47,5 +52,11 @@ int library_books::get_number_of_copies()
 
 int library_books::get_edition_year()
 {
-  return edition_year;
+    return edition_year;
 }
+
+/*
+void library_books::add_library_id(QString id)
+{
+    this->library_id = id;
+}*/

@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
     connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
     connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_cb);
+
     connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::loadGenreComboBox);
     connect(ui->genre_cb, &QComboBox::textActivated, this, &MainWindow::loadSubGenreComboBox);
 
@@ -20,40 +21,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     print_map();
     loadFilterComboBox();
     loadTypeComboBox();
-    //loadGenreComboBox();
+    loadGenreComboBox();
     //loadSubGenreComboBox();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::write_to_file()
-{
-    QFile book_io("books.txt");
-    if(!book_io.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
-    {
-        qDebug()<< "Error Loading Data File\n";
-    }
-    QTextStream out(&book_io);
-    //out << "The magic number is: " << 49 << "\n";
-        // library_books(QString a, uint64_t i, QString g, QString t, QString e, int y, int num_c = 1, bool availability = true, QString li="N/A", QString sg ="N/A"):Book (a, i, g, t, e, y)
-    for (auto it : bMap)
-    {
-        out << it.get_title() << Qt::endl;
-        out << it.get_author()<< Qt::endl;
-        out << it.get_genre()<< Qt::endl;
-        out << it.get_subgenre() << Qt::endl;
-        out << it.get_publisher() << Qt::endl;
-        out << it.get_edition_year() << Qt::endl;
-        out << it.get_isbn()<< Qt::endl;
-        out << it.get_number_of_copies() << Qt::endl;
-        out << it.get_library_id() << Qt::endl;
-        out << it.get_availability() << Qt::endl;
-    }
-    book_io.close();
-    qDebug() << "FILE WRITTEN" << Qt::endl;
 }
 
 void MainWindow::buildbTypes()
@@ -66,12 +40,27 @@ void MainWindow::buildbTypes()
 
 void MainWindow::buildbGenres()
 {
-
+    this->bGenres.clear();
+    QStringList bGenre = {"Fiction", "Non Fiction"};
+    QStringList bSchoolGenre = {"12th Grade","11th Grade","10th Grade","9th Grade","8th Grade","7th Grade",
+                               "6th Grade","5th Grade","4th Grade","3rd Grade","2nd Grade","1st Grade"};
+    if(ui->type_cb->currentText() == bTypes[0] || ui->type_cb->currentText() == bTypes[1])
+    {
+        this->bGenres = bGenre;
+    }
+    else{
+        this->bGenres = bSchoolGenre;
+    }
 }
 
 void MainWindow::buildbSubGenres()
 {
-
+    QStringList bSubGenre[2] = {
+        {"Fairy Tails", "Fables"},
+        {"Politics", "Health"}
+    };
+    QStringList bSchoolSubGenre = {"Mathematics", "Portuguese", "History", "Foreign Languages", "Philosophy"
+                                  "Physics and Chemistry", "Natural Sciences"};
 }
 
 void MainWindow::buildbSGenres()
@@ -90,6 +79,45 @@ void MainWindow::loadTypeComboBox()
     ui->type_cb->addItems(bTypes);
 }
 
+void MainWindow::loadGenreComboBox()
+{
+    ui->genre_cb->clear();
+    buildbGenres();
+    ui->genre_cb->addItems(bGenres);
+}
+
+void MainWindow::loadSubGenreComboBox()
+{
+
+}
+
+void MainWindow::write_to_file()
+{
+    QFile book_io("books.txt");
+    if(!book_io.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+    {
+        qDebug()<< "Error Loading Data File\n";
+    }
+    QTextStream out(&book_io);
+    //out << "The magic number is: " << 49 << "\n";
+    for (auto it : bMap)
+    {
+        out << it.get_title() << Qt::endl;
+        out << it.get_author()<< Qt::endl;
+        out << it.get_type() << Qt::endl;
+        out << it.get_genre()<< Qt::endl;
+        out << it.get_subgenre() << Qt::endl;
+        out << it.get_publisher() << Qt::endl;
+        out << it.get_isbn()<< Qt::endl;
+        out << it.get_edition_year() << Qt::endl;
+        out << it.get_number_of_copies() << Qt::endl;
+        out << it.get_availability() << Qt::endl;
+        out << it.get_library_id() << Qt::endl;
+    }
+    book_io.close();
+    qDebug() << "FILE WRITTEN" << Qt::endl;
+}
+
 
 void MainWindow::loadMap()
 {
@@ -101,24 +129,24 @@ void MainWindow::loadMap()
     QTextStream in(&books_file);
     while(!in.atEnd()){
 
-        int num;
+
         bool av = true;
         QString tit = in.readLine();
         QString auth = in.readLine();
+        QString typ = in.readLine();
         QString gen = in.readLine();
         QString subgen = in.readLine();
         QString pub = in.readLine();
-        int year = in.readLine().toInt();
         int is = in.readLine().toULong();
-        num = in.readLine().toInt();
-        QString libid = in.readLine();
+        int year = in.readLine().toInt();
+        int num = in.readLine().toInt();
         int avail = in.readLine().toInt();
         //qDebug() << "DEBUG AVAIL: " <<avail;
         if (avail == 0){
-               av = false;
+            av = false;
         }
-        // library_books(QString a, uint64_t i, QString g, QString t, QString e, int y, int num_c = 1, bool availability = true, QString li="N/A", QString sg ="N/A"):Book (a, i, g, t, e, y)
-        library_books new_book(auth,is, gen, tit, pub, year, num, av, libid, subgen);
+        QString libid = in.readLine();
+        library_books new_book(tit,auth,typ, gen, subgen, pub, is, year, num, av, libid);
         bMap.insert(is, new_book);
     }
     books_file.close();
@@ -127,17 +155,18 @@ void MainWindow::loadMap()
 void MainWindow::submit_btn_clicked()
 {
     loadMap();
-    // library_books(QString a, uint64_t i, QString g, QString t, QString e, int y, int num_c = 1, bool availability = true, QString li="N/A", QString sg ="N/A"):Book (a, i, g, t, e, y)
-    library_books new_book(ui->author_input->text(),
-                           ui->isbn_input->text().toULong(),
-                           ui->genre_cb->currentText(),
-                           ui->title_input->text(),
-                           ui->publisher_input->text(),
-                           ui->edition_year_date->text().toInt(),
-                           ui->qty_sb->text().toInt(),
-                           true,
-                           ui->library_id_input->text(),
-                           ui->subgenre_cb->currentText());
+    library_books new_book(
+                ui->title_input->text(),
+                ui->author_input->text(),
+                ui->type_cb->currentText(),
+                ui->genre_cb->currentText(),
+                ui->subgenre_cb->currentText(),
+                ui->publisher_input->text(),
+                ui->isbn_input->text().toULong(),
+                ui->edition_year_date->text().toInt(),
+                ui->qty_sb->text().toInt(),
+                true,
+                ui->library_id_input->text());
 
     bMap.insert(ui->isbn_input->text().toULong(), new_book);
     write_to_file();
@@ -215,14 +244,9 @@ void MainWindow::loadFilterComboBox()
     }
 }
 
-void MainWindow::loadGenreComboBox()
-{
 
-}
-
-void MainWindow::loadSubGenreComboBox()
+void MainWindow::generateLibraryId()
 {
-    //qDebug() << "Subgenre called";
 
 }
 
@@ -232,6 +256,7 @@ void MainWindow::print_map()
     for(auto it : bMap){
         qDebug() << "Title" << it.get_title();
         qDebug() << "Author:" << it.get_author();
+        qDebug() << "Type:" << it.get_type();
         qDebug() << "Genre" << it.get_genre();
         qDebug() << "SubGenre" << it.get_subgenre();
         qDebug() << "Publisher:" << it.get_publisher();

@@ -35,8 +35,8 @@ private:
     QStringList bGenres;  //other types
     QStringList bSubGenres; //other types
 
-    QStringList bSGenres; //type school
-    QStringList bSSubGenres; //type school
+    //QStringList bSGenres; //type school
+    //QStringList bSSubGenres; //type school
 
     //Map <-> IO functions
     void loadMap();
@@ -65,6 +65,7 @@ private slots:
     void clear_lineEdit();
     void loadGenreComboBox();
     void loadSubGenreComboBox();
+    void generateLibraryId();
 };
 
 #endif // MAINWINDOW_H

@@ -1,12 +1,13 @@
 #include "book.h"
 
-Book::Book(QString author, uint64_t isbn, QString genre, QString title, QString publisher, int yoe)
+Book:: Book(QString title, QString author, QString type, QString genre, QString sub_genre, QString publisher, uint64_t isbn , int yoe)
 {
-    //Book(QString author = "N/A", uint64_t isbn = 000000000, QString genre = "N/A", QString title = "UNTITLED", QString editor="N/A", int yoe = 2000);
-    this->author = author;
-    this->isbn = isbn;
-    this->genre = genre;
     this->title = title;
+    this->author = author;
+    this->type = type;
+    this->genre = genre;
+    this->sub_genre = sub_genre;
     this->publisher = publisher;
+    this->isbn = isbn;
     this->edition_year = yoe;
 }
