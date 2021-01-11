@@ -7,7 +7,6 @@
 #include <QDebug>
 #include <QFile>
 //#include <QTimer>
-#include "access_dialog.h"
 #include "library_data.h"
 
 
@@ -48,9 +47,6 @@ private:
 
     void buildbGenres();
     void buildbSubGenres();
-
-    void buildbSGenres();
-    void buildbSSubGenres();
 
     //load combo box function
     void loadTypeComboBox();

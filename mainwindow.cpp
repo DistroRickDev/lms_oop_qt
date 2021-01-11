@@ -14,7 +14,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_cb);
 
     connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::loadGenreComboBox);
+    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
     connect(ui->genre_cb, &QComboBox::textActivated, this, &MainWindow::loadSubGenreComboBox);
+    connect(ui->genre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
+    connect(ui->subgenre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
+
 
     //Init Functions
     loadMap();
@@ -22,7 +26,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     loadFilterComboBox();
     loadTypeComboBox();
     loadGenreComboBox();
-    //loadSubGenreComboBox();
+    loadSubGenreComboBox();
+    generateLibraryId();
 }
 
 MainWindow::~MainWindow()
@@ -55,23 +60,29 @@ void MainWindow::buildbGenres()
 
 void MainWindow::buildbSubGenres()
 {
+    this->bSubGenres.clear();
     QStringList bSubGenre[2] = {
-        {"Fairy Tails", "Fables"},
-        {"Politics", "Health"}
+        {				"Comics", "Fable", "Horror", "Adventure", "Myth", "Romance", "Novel", "Fiction", "Biography", "Drama", "Fictional" "History", "Westerns", "Poetry"
+        },
+        {				"Art", "Natural Sciences", "Social Sciences", "Leisure and Sport", "Self Empowerment", "Economics, Finances and Accounting",
+                        "Engineering", "Health and well-Being", "Cuisine", "Maps and Tourist Guides", "History", "IT", "Medicine", "Politics", "Religion",
+                        "Dictionaries and Encyclopedias"}
     };
-    QStringList bSchoolSubGenre = {"Mathematics", "Portuguese", "History", "Foreign Languages", "Philosophy"
-                                  "Physics and Chemistry", "Natural Sciences"};
+    QStringList bSchoolSubGenre = {"Mathmatics", "Portuguese", "History and Geography", "Natural Sciences", "Physics and Chemestry", "Philosophy",
+                                   "Foreign Languages", "Arts and Design", "Technology"};
+    if(ui->genre_cb->currentText() == "Fiction")
+    {
+        this -> bSubGenres = bSubGenre[0];
+    }
+    else if(ui->genre_cb->currentText() == "Non Fiction"){
+        this -> bSubGenres = bSubGenre[1];
+    }
+    else{
+        this -> bSubGenres = bSchoolSubGenre;
+    }
 }
 
-void MainWindow::buildbSGenres()
-{
 
-}
-
-void MainWindow::buildbSSubGenres()
-{
-
-}
 
 void MainWindow::loadTypeComboBox()
 {
@@ -84,11 +95,14 @@ void MainWindow::loadGenreComboBox()
     ui->genre_cb->clear();
     buildbGenres();
     ui->genre_cb->addItems(bGenres);
+    loadSubGenreComboBox();
 }
 
 void MainWindow::loadSubGenreComboBox()
 {
-
+    ui->subgenre_cb->clear();
+    buildbSubGenres();
+    ui->subgenre_cb->addItems(bSubGenres);
 }
 
 void MainWindow::write_to_file()
@@ -247,7 +261,26 @@ void MainWindow::loadFilterComboBox()
 
 void MainWindow::generateLibraryId()
 {
-
+    srand(time(NULL));
+    QString bID;
+    QString t;
+    if(ui->type_cb->currentText() == bTypes[0])
+    {
+        t = "PT";
+    }
+    else if(ui->type_cb->currentText() == bTypes[1])
+    {
+        t = "OL";
+    }
+    else{
+        t = "S";
+    }
+    QChar g = ui->genre_cb->currentText().at(0);
+    QChar s = ui->subgenre_cb->currentText().at(0);
+    QString shelf = QString::number(rand() % 30);
+    QString pos = QString::number(rand() % 30);
+    bID.append(t), bID.append(g),bID.append(s), bID.append(shelf), bID.append(pos);
+    ui->library_id_input->setText(bID);
 }
 
 
