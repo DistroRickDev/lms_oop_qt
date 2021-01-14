@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -11,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     connect(ui->clear_btn, &QPushButton::clicked, this, &MainWindow::clear_lineEdit);
     connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
     connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
-    connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_cb);
+    connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_entry);
 
     connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::loadGenreComboBox);
     connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
@@ -191,27 +192,9 @@ void MainWindow::submit_btn_clicked()
 
 void MainWindow::update_by_filter()
 {
-    for  (auto i : bMap) {
-        if(ui->title_filter_rb->isChecked())
-        {
-            if(i.get_title() ==  ui->title_filter_cb->currentText()){
-                ui->title_r_identifier->setText(i.get_title());
-                ui->author_r_identifier->setText(i.get_author());
-                ui->isbn_r_identifier->setText(QString::number(i.get_isbn()));
-                ui->genre_r_identifier->setText(i.get_genre());
-                break;
-            }
-        }
-        else if(ui->isbn_filter_rb->isChecked()){
-            if(QString::number(i.get_isbn()) ==  ui->isbn_filter_cb->currentText()){
-                ui->title_r_identifier->setText(i.get_title());
-                ui->author_r_identifier->setText(i.get_author());
-                ui->isbn_r_identifier->setText(QString::number(i.get_isbn()));
-                ui->genre_r_identifier->setText(i.get_genre());
-                break;
-            }
-        }
-    }
+   /* for  (auto i : bMap) {
+
+    }*/
 }
 
 void MainWindow::toggle_title_cb()
@@ -225,14 +208,14 @@ void MainWindow::toggle_title_cb()
     }
 }
 
-void MainWindow::toggle_isbn_cb()
+void MainWindow::toggle_isbn_entry()
 {
     if(ui->isbn_filter_rb->isChecked())
     {
-        ui->isbn_filter_cb->setEnabled(true);
+        ui->isbn_filter_entry->setEnabled(true);
     }
     else{
-        ui->isbn_filter_cb->setEnabled(false);
+        ui->isbn_filter_entry->setEnabled(false);
     }
 }
 
@@ -250,11 +233,10 @@ void MainWindow::clear_lineEdit()
 void MainWindow::loadFilterComboBox()
 {
     ui->title_filter_cb->clear();
-    ui->isbn_filter_cb->clear();
+    ui->isbn_filter_entry->clear();
     for(auto i : bMap)
     {
         ui->title_filter_cb->addItem(i.get_title());
-        ui->isbn_filter_cb->addItem(QString::number(i.get_isbn()));
     }
 }
 

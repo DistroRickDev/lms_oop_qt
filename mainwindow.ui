@@ -38,6 +38,9 @@ QTabBar::tab {
     border-top-right-radius: 4px;
 }
 
+QCheckBox{
+	alignment: AlignHCenter;
+}
 
 QTabBar::tab:selected {
     color: #f8ad47;
@@ -65,13 +68,17 @@ QPushButton:hover{
 }
 
 
-QLabel{
+QLabel, QCheckBox{
 	background: #353535;
 }
 
-QSpinBox, QDateEdit, #genre_cb, #subgenre_cb, #type_cb{
+QSpinBox, QComboBox,QDateEdit{
 	background: #353535;
 	color: #f8ad47;
+}
+
+QLineEdit::disabled{
+	background: #373737;
 }
 
 
@@ -102,7 +109,7 @@ QComboBox:disabled{
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QHBoxLayout" name="horizontalLayout_24">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -138,127 +145,69 @@ QComboBox:disabled{
          </font>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
           <string>Books Info</string>
          </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_8">
-            <item>
-             <widget class="QLabel" name="title_info">
-              <property name="text">
-               <string>TITLE: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="author_info">
-              <property name="text">
-               <string>AUTHOR: </string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_21">
-            <item>
-             <widget class="QLabel" name="type_info">
-              <property name="text">
-               <string>TYPE: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="genre_info">
-              <property name="text">
-               <string>GENRE: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="subgenre_info">
-              <property name="text">
-               <string>SUBGENRE: </string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_23">
-            <item>
-             <widget class="QLabel" name="publisher_info">
-              <property name="text">
-               <string>PUBLISHER: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="edition_info">
-              <property name="text">
-               <string>EDITION YEAR:</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_24">
-            <item>
-             <widget class="QLabel" name="isbn_info">
-              <property name="text">
-               <string>ISBN:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="libraryID_info">
-              <property name="text">
-               <string>LIBRARY ID:</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_26">
-            <item>
-             <widget class="QLabel" name="number_of_copies">
-              <property name="text">
-               <string>NUMBER OF COPIES: </string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="availability_info">
-              <property name="text">
-               <string>AVAILABILITY: </string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_25">
-            <item>
-             <widget class="QPushButton" name="select_info_btn">
-              <property name="text">
-               <string>SELECT</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="clear_info_btn">
-              <property name="text">
-               <string>CLEAR</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QTableWidget" name="tableWidget">
+            <property name="columnCount">
+             <number>10</number>
+            </property>
+            <column>
+             <property name="text">
+              <string>TITLE</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>AUTHOR</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>TYPE</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>GENRE</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>SUBGENRE</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>PUBLISHER</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>EDITION YEAR</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>ISBN</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>LIBRARY ID</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>QUANTITY</string>
+             </property>
+            </column>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -270,7 +219,7 @@ QComboBox:disabled{
           <item>
            <widget class="QTabWidget" name="tabWidget_2">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="add_tab">
              <attribute name="title">
@@ -485,9 +434,9 @@ QComboBox:disabled{
             </widget>
             <widget class="QWidget" name="remove_tab">
              <attribute name="title">
-              <string>Remove Book</string>
+              <string>Remove or Edit Book</string>
              </attribute>
-             <layout class="QVBoxLayout" name="verticalLayout_7">
+             <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
                <layout class="QVBoxLayout" name="verticalLayout_4">
                 <item>
@@ -495,14 +444,39 @@ QComboBox:disabled{
                   <property name="text">
                    <string>Search Entry By:</string>
                   </property>
+                  <property name="alignment">
+                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>false</bool>
+                  </property>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <layout class="QHBoxLayout" name="horizontalLayout_21">
                   <item>
                    <widget class="QRadioButton" name="title_filter_rb">
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
                     <property name="text">
                      <string>Title</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="alphabet_cb">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>16777215</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -516,16 +490,132 @@ QComboBox:disabled{
                  </layout>
                 </item>
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                 <layout class="QHBoxLayout" name="horizontalLayout_23">
                   <item>
                    <widget class="QRadioButton" name="isbn_filter_rb">
+                    <property name="maximumSize">
+                     <size>
+                      <width>60</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
                     <property name="text">
                      <string>ISBN</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="isbn_filter_cb">
+                   <widget class="QLineEdit" name="isbn_filter_entry">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="editable_check">
+                <property name="layoutDirection">
+                 <enum>Qt::LeftToRight</enum>
+                </property>
+                <property name="text">
+                 <string>Editable Entries</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_7">
+                <item>
+                 <widget class="QLabel" name="title_r_label">
+                  <property name="text">
+                   <string>Title:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="title_edit">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <item>
+                 <widget class="QLabel" name="author_r_label">
+                  <property name="text">
+                   <string>Author:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="author_edit">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_36">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <item>
+                   <widget class="QLabel" name="type_r_label">
+                    <property name="text">
+                     <string>Type: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="type_edit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <item>
+                   <widget class="QLabel" name="genre_r_label">
+                    <property name="text">
+                     <string>Genre: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="genre_edit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_12">
+                  <item>
+                   <widget class="QLabel" name="subgenre_r_label">
+                    <property name="text">
+                     <string>Sub Genre: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="subgenre_edit">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
@@ -536,74 +626,41 @@ QComboBox:disabled{
                </layout>
               </item>
               <item>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_10">
-                  <item>
-                   <widget class="QLabel" name="title_r_label">
-                    <property name="text">
-                     <string>Title:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="title_r_identifier">
-                    <property name="text">
-                     <string>N/A</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_11">
-                  <item>
-                   <widget class="QLabel" name="author_r_label">
-                    <property name="text">
-                     <string>Author:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="author_r_identifier">
-                    <property name="text">
-                     <string>N/A</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_12">
-                  <item>
-                   <widget class="QLabel" name="isbn_r_label">
-                    <property name="text">
-                     <string>ISBN: </string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="isbn_r_identifier">
-                    <property name="text">
-                     <string>N/A</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
+               <layout class="QHBoxLayout" name="horizontalLayout_34">
                 <item>
                  <layout class="QHBoxLayout" name="horizontalLayout_13">
                   <item>
-                   <widget class="QLabel" name="genre_r_label">
+                   <widget class="QLabel" name="publisher_r_label">
                     <property name="text">
-                     <string>Genre: </string>
+                     <string>Publisher:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLabel" name="genre_r_identifier">
+                   <widget class="QLineEdit" name="publisher_edit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_15">
+                  <item>
+                   <widget class="QLabel" name="year_r_label">
                     <property name="text">
-                     <string>N/A</string>
+                     <string>Edition Year:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QDateEdit" name="year_edit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="displayFormat">
+                     <string>yyyy</string>
                     </property>
                    </widget>
                   </item>
@@ -612,14 +669,65 @@ QComboBox:disabled{
                </layout>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_15">
+               <layout class="QHBoxLayout" name="horizontalLayout_35">
                 <item>
-                 <widget class="QPushButton" name="remove_btn">
-                  <property name="text">
-                   <string>Remove Entry</string>
-                  </property>
-                 </widget>
+                 <layout class="QHBoxLayout" name="horizontalLayout_27">
+                  <item>
+                   <widget class="QLabel" name="isbn_r_label">
+                    <property name="text">
+                     <string>ISBN: </string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="isbn_edit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
                 </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_28">
+                  <item>
+                   <widget class="QLabel" name="lid_r_label">
+                    <property name="text">
+                     <string>Library ID:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lid_edit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_29">
+                  <item>
+                   <widget class="QLabel" name="qty_r_label">
+                    <property name="text">
+                     <string>Quantity:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QSpinBox" name="qty_edit">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_33">
                 <item>
                  <widget class="QPushButton" name="filter_btn">
                   <property name="text">
@@ -627,14 +735,23 @@ QComboBox:disabled{
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QPushButton" name="edit_btn">
+                  <property name="text">
+                   <string>Edit Entry</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="remove_btn">
+                  <property name="text">
+                   <string>Remove Entry</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
-            </widget>
-            <widget class="QWidget" name="edit_tab">
-             <attribute name="title">
-              <string>Edit Entry</string>
-             </attribute>
             </widget>
            </widget>
           </item>

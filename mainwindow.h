@@ -57,7 +57,7 @@ private slots:
     void submit_btn_clicked();
     void update_by_filter();
     void toggle_title_cb();
-    void toggle_isbn_cb();
+    void toggle_isbn_entry();
     void clear_lineEdit();
     void loadGenreComboBox();
     void loadSubGenreComboBox();
