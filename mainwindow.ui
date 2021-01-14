@@ -138,12 +138,129 @@ QComboBox:disabled{
          </font>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
           <string>Books Info</string>
          </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QLabel" name="title_info">
+              <property name="text">
+               <string>TITLE: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="author_info">
+              <property name="text">
+               <string>AUTHOR: </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_21">
+            <item>
+             <widget class="QLabel" name="type_info">
+              <property name="text">
+               <string>TYPE: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="genre_info">
+              <property name="text">
+               <string>GENRE: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="subgenre_info">
+              <property name="text">
+               <string>SUBGENRE: </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_23">
+            <item>
+             <widget class="QLabel" name="publisher_info">
+              <property name="text">
+               <string>PUBLISHER: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="edition_info">
+              <property name="text">
+               <string>EDITION YEAR:</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_24">
+            <item>
+             <widget class="QLabel" name="isbn_info">
+              <property name="text">
+               <string>ISBN:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="libraryID_info">
+              <property name="text">
+               <string>LIBRARY ID:</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_26">
+            <item>
+             <widget class="QLabel" name="number_of_copies">
+              <property name="text">
+               <string>NUMBER OF COPIES: </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="availability_info">
+              <property name="text">
+               <string>AVAILABILITY: </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_25">
+            <item>
+             <widget class="QPushButton" name="select_info_btn">
+              <property name="text">
+               <string>SELECT</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="clear_info_btn">
+              <property name="text">
+               <string>CLEAR</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
         <widget class="QWidget" name="admin_book_tab">
          <attribute name="title">
