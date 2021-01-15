@@ -2,12 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-//#include <QMap>
-//#include <QVector>
 #include <QDebug>
 #include <QFile>
-//#include <QTimer>
 #include "library_data.h"
+#include "bauxutils.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -52,6 +50,10 @@ private:
     void loadTypeComboBox();
     void loadFilterComboBox();
 
+    void loadTypeEditComboBox();
+
+    void setConnections();
+    void initFunctions();
 
 private slots:
     void submit_btn_clicked();
@@ -62,6 +64,8 @@ private slots:
     void loadGenreComboBox();
     void loadSubGenreComboBox();
     void generateLibraryId();
+    void enableEdit();
+    void buildTitles();
 };
 
 #endif // MAINWINDOW_H

@@ -9,12 +9,14 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bauxutils.cpp \
     book.cpp \
     library_data.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    bauxutils.h \
     book.h \
     library_data.h \
     mainwindow.h

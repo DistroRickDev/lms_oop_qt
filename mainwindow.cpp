@@ -6,29 +6,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
 {
     ui->setupUi(this);
     this->setWindowTitle("Book Management System"); //Sets main window title
+    this->setMaximumSize(1280, 720); //to avoid widget misplacement
 
     //Connections
-    connect(ui->submit_btn, &QPushButton::clicked, this, &MainWindow::submit_btn_clicked);
-    connect(ui->clear_btn, &QPushButton::clicked, this, &MainWindow::clear_lineEdit);
-    connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
-    connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
-    connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_entry);
-
-    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::loadGenreComboBox);
-    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
-    connect(ui->genre_cb, &QComboBox::textActivated, this, &MainWindow::loadSubGenreComboBox);
-    connect(ui->genre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
-    connect(ui->subgenre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
-
+    setConnections();
 
     //Init Functions
-    loadMap();
-    print_map();
-    loadFilterComboBox();
-    loadTypeComboBox();
-    loadGenreComboBox();
-    loadSubGenreComboBox();
-    generateLibraryId();
+    initFunctions();
 }
 
 MainWindow::~MainWindow()
@@ -88,7 +72,7 @@ void MainWindow::buildbSubGenres()
 void MainWindow::loadTypeComboBox()
 {
     buildbTypes();
-    ui->type_cb->addItems(bTypes);
+    ui->type_cb->addItems(bTypes);    
 }
 
 void MainWindow::loadGenreComboBox()
@@ -192,9 +176,20 @@ void MainWindow::submit_btn_clicked()
 
 void MainWindow::update_by_filter()
 {
-   /* for  (auto i : bMap) {
-
-    }*/
+    ui->type_edit->clear();
+    ui->type_edit->addItems(bTypes);
+    for  (auto it : bMap) {
+        if(ui->title_filter_rb->isChecked())
+        {
+            if(it.get_title() == ui->title_filter_cb->currentText())
+            {
+                ui->title_edit->setText(it.get_title());
+                ui->author_edit->setText(it.get_author());
+                //int i = 0;
+                // ui->type_edit->setCurrentText(it.get_type());
+            }
+        }
+    }
 }
 
 void MainWindow::toggle_title_cb()
@@ -202,9 +197,11 @@ void MainWindow::toggle_title_cb()
     if(ui->title_filter_rb->isChecked())
     {
         ui->title_filter_cb->setEnabled(true);
+        ui->alphabet_cb->setEnabled(true);
     }
     else{
         ui->title_filter_cb->setEnabled(false);
+        ui->alphabet_cb->setEnabled(false);
     }
 }
 
@@ -234,10 +231,17 @@ void MainWindow::loadFilterComboBox()
 {
     ui->title_filter_cb->clear();
     ui->isbn_filter_entry->clear();
-    for(auto i : bMap)
-    {
-        ui->title_filter_cb->addItem(i.get_title());
-    }
+    ui->alphabet_cb->clear();
+
+    bAuxUtils newAlphabet;
+
+    ui->alphabet_cb->addItems(newAlphabet.return_alphabet());
+
+}
+
+void MainWindow::loadTypeEditComboBox()
+{
+    ui->type_edit->addItems(bTypes);
 }
 
 
@@ -265,6 +269,51 @@ void MainWindow::generateLibraryId()
     ui->library_id_input->setText(bID);
 }
 
+void MainWindow::enableEdit()
+{
+    if(ui->editable_check->isChecked())
+    {
+        //qDebug() << "YOU CAN EDIT NOW";
+        ui->remove_btn->setEnabled(false); //disables remove option
+        ui->edit_btn->setEnabled(true); // enables edit option
+        ui->title_edit->setEnabled(true); //enables text line edit
+        ui->author_edit->setEnabled(true); //enables author line edit
+        ui->type_edit->setEnabled(true); //enables type line edit
+        ui->genre_edit->setEnabled(true); //enables genre line edit
+        ui->subgenre_edit->setEnabled(true); //enables subgenre line edit
+        ui->publisher_edit->setEnabled(true); //enables publisher line edit
+        ui->year_edit->setEnabled(true); //enables EY line edit
+        ui->isbn_edit->setEnabled(true); //enables isbn line edit
+        ui->qty_edit->setEnabled(true); //enables qty edit
+    }
+    else {
+        ui->remove_btn->setEnabled(true); //enables remove option
+        ui->edit_btn->setEnabled(false); // disables edit option
+        ui->title_edit->setEnabled(false); //disables text line edit
+        ui->author_edit->setEnabled(false); //disables author line edit
+        ui->type_edit->setEnabled(false); //disables type line edit
+        ui->genre_edit->setEnabled(false); //disables genre line edit
+        ui->subgenre_edit->setEnabled(false); //disables subgenre line edit
+        ui->publisher_edit->setEnabled(false); //disables publisher line edit
+        ui->year_edit->setEnabled(false); //disables EY line edit
+        ui->isbn_edit->setEnabled(false); //disables isbn line edit
+        ui->qty_edit->setEnabled(false); //disables qty edit
+    }
+}
+
+void MainWindow::buildTitles()
+{
+    ui->title_filter_cb->clear();
+    for(auto it: bMap)
+    {
+        if(it.get_title().contains(ui->alphabet_cb->currentText().at(0)))
+        {
+            //qDebug()<< "TEXT EXISTS";
+            ui->title_filter_cb->addItem(it.get_title());
+        }
+    }
+}
+
 
 void MainWindow::print_map()
 {
@@ -285,3 +334,32 @@ void MainWindow::print_map()
 }
 
 
+void MainWindow:: setConnections()
+{
+    connect(ui->submit_btn, &QPushButton::clicked, this, &MainWindow::submit_btn_clicked);
+    connect(ui->clear_btn, &QPushButton::clicked, this, &MainWindow::clear_lineEdit);
+    connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
+    connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
+    connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_entry);
+    //connect(ui->title_filter_cb, &QComboBox::textActivated, this, );
+
+    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::loadGenreComboBox);
+    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
+    connect(ui->genre_cb, &QComboBox::textActivated, this, &MainWindow::loadSubGenreComboBox);
+    connect(ui->genre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
+    connect(ui->subgenre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
+    connect(ui->editable_check, &QCheckBox::toggled, this, &MainWindow::enableEdit);
+    connect(ui->alphabet_cb, &QComboBox::textActivated, this, &MainWindow::buildTitles);
+}
+
+void MainWindow:: initFunctions()
+{
+    loadMap();
+    print_map();
+    loadFilterComboBox();
+    loadTypeComboBox();
+    loadGenreComboBox();
+    loadSubGenreComboBox();
+    generateLibraryId();
+    enableEdit();
+}
