@@ -314,6 +314,14 @@ void MainWindow::buildTitles()
     }
 }
 
+void MainWindow::buildInfoTable()
+{
+    ui->infoTable->clear();
+    QTableWidgetItem item;
+    item.setText("TEST");
+    ui->infoTable->setItem(1,0,&item);
+}
+
 
 void MainWindow::print_map()
 {
@@ -362,4 +370,7 @@ void MainWindow:: initFunctions()
     loadSubGenreComboBox();
     generateLibraryId();
     enableEdit();
+
+    //test
+    buildInfoTable();
 }

@@ -66,6 +66,7 @@ private slots:
     void generateLibraryId();
     void enableEdit();
     void buildTitles();
+    void buildInfoTable();
 };
 
 #endif // MAINWINDOW_H
