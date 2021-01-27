@@ -67,8 +67,6 @@ void MainWindow::buildbSubGenres()
     }
 }
 
-
-
 void MainWindow::loadTypeComboBox()
 {
     buildbTypes();
@@ -154,6 +152,7 @@ void MainWindow::loadMap()
 void MainWindow::submit_btn_clicked()
 {
     loadMap();
+    validateRegister();
     library_books new_book(
                 ui->title_input->text(),
                 ui->author_input->text(),
@@ -185,8 +184,7 @@ void MainWindow::update_by_filter()
             {
                 ui->title_edit->setText(it.get_title());
                 ui->author_edit->setText(it.get_author());
-                //int i = 0;
-                // ui->type_edit->setCurrentText(it.get_type());
+                ui->isbn_edit->setText(QString::number(it.get_isbn()));
             }
         }
     }
@@ -306,7 +304,7 @@ void MainWindow::buildTitles()
     ui->title_filter_cb->clear();
     for(auto it: bMap)
     {
-        if(it.get_title().contains(ui->alphabet_cb->currentText().at(0)))
+        if(it.get_title().at(0) == ui->alphabet_cb->currentText().at(0) || it.get_title().at(0) == (ui->alphabet_cb->currentText().at(0).toLatin1()) + 32)
         {
             //qDebug()<< "TEXT EXISTS";
             ui->title_filter_cb->addItem(it.get_title());
@@ -316,10 +314,17 @@ void MainWindow::buildTitles()
 
 void MainWindow::buildInfoTable()
 {
-    ui->infoTable->clear();
-    QTableWidgetItem item;
-    item.setText("TEST");
-    ui->infoTable->setItem(1,0,&item);
+    //TODO()
+}
+
+void MainWindow::removeBook()
+{
+ loadMap();
+ auto it=bMap.find(ui->isbn_edit->text().toUInt());
+ bMap.erase (it);
+ print_map();
+ clearEditCB();
+ write_to_file();
 }
 
 
@@ -358,6 +363,7 @@ void MainWindow:: setConnections()
     connect(ui->subgenre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
     connect(ui->editable_check, &QCheckBox::toggled, this, &MainWindow::enableEdit);
     connect(ui->alphabet_cb, &QComboBox::textActivated, this, &MainWindow::buildTitles);
+    connect(ui->remove_btn, &QPushButton::clicked, this, &MainWindow::removeBook);
 }
 
 void MainWindow:: initFunctions()
@@ -373,4 +379,41 @@ void MainWindow:: initFunctions()
 
     //test
     buildInfoTable();
+}
+
+void MainWindow::clearEditCB()
+{
+    loadFilterComboBox();
+    ui->author_edit->clear();
+    ui->title_edit->clear();
+    ui->type_edit->clear();
+    ui->subgenre_edit->clear();
+    ui->genre_edit->clear();
+    ui->publisher_edit->clear();
+    ui->year_edit->setDate(QDate(2000,1,1));
+    ui->isbn_edit->clear();
+    ui->qty_edit->setValue(0);
+    ui->lid_edit->clear();
+}
+
+void MainWindow::validateRegister()
+{
+    for (int i = 0 ;i <127 ;i++ ) {
+         if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
+         {
+             if(ui->title_input->text().at(0) == i)
+             {
+                 qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
+                 exit(0);
+             }
+             else{
+                 continue;
+             }
+         }
+    }
+    if(ui->isbn_input->text().length()>13)
+    {
+        qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
+        exit(0);
+    }
 }

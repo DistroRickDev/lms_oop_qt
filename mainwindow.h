@@ -19,12 +19,13 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
 private:
     Ui::MainWindow *ui;
 
     //Add library books
     QMap<int, library_books> bMap;
+
+
 
     // TYPE -> GENRE -> SUBGENRE
     QStringList bTypes;
@@ -55,6 +56,10 @@ private:
     void setConnections();
     void initFunctions();
 
+    void clearEditCB();
+
+    void validateRegister();
+
 private slots:
     void submit_btn_clicked();
     void update_by_filter();
@@ -67,6 +72,7 @@ private slots:
     void enableEdit();
     void buildTitles();
     void buildInfoTable();
+    void removeBook();
 };
 
 #endif // MAINWINDOW_H
