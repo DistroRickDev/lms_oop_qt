@@ -36,6 +36,9 @@ private:
     //QStringList bSGenres; //type school
     //QStringList bSSubGenres; //type school
 
+    //failsafe
+    int ISBN_STORE;
+
     //Map <-> IO functions
     void loadMap();
     void print_map();
@@ -58,7 +61,11 @@ private:
 
     void clearEditCB();
 
-    void validateRegister();
+    void validateRegister(uint8_t opt);
+
+    QString generateLibraryId();
+
+    QString generateLibraryIDED();
 
 private slots:
     void submit_btn_clicked();
@@ -68,11 +75,15 @@ private slots:
     void clear_lineEdit();
     void loadGenreComboBox();
     void loadSubGenreComboBox();
-    void generateLibraryId();
     void enableEdit();
     void buildTitles();
     void buildInfoTable();
     void removeBook();
+    void buildGenreEdit();
+    void buildSubGenreEdit();
+    void att_lid_reg();
+    void att_lid_ed();
+    void editBook();
 };
 
 #endif // MAINWINDOW_H

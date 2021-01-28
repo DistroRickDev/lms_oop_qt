@@ -152,7 +152,7 @@ void MainWindow::loadMap()
 void MainWindow::submit_btn_clicked()
 {
     loadMap();
-    validateRegister();
+    validateRegister(0);
     library_books new_book(
                 ui->title_input->text(),
                 ui->author_input->text(),
@@ -175,8 +175,10 @@ void MainWindow::submit_btn_clicked()
 
 void MainWindow::update_by_filter()
 {
+
     ui->type_edit->clear();
     ui->type_edit->addItems(bTypes);
+    buildGenreEdit();
     for  (auto it : bMap) {
         if(ui->title_filter_rb->isChecked())
         {
@@ -185,6 +187,11 @@ void MainWindow::update_by_filter()
                 ui->title_edit->setText(it.get_title());
                 ui->author_edit->setText(it.get_author());
                 ui->isbn_edit->setText(QString::number(it.get_isbn()));
+                ISBN_STORE = it.get_isbn();
+                ui->publisher_edit->setText(it.get_publisher());
+                ui->lid_edit->setText(it.get_library_id());
+                ui->year_edit->setDate(QDate(it.get_edition_year(), 1, 1));
+                ui->qty_edit->setValue(it.get_number_of_copies());
             }
         }
     }
@@ -243,7 +250,7 @@ void MainWindow::loadTypeEditComboBox()
 }
 
 
-void MainWindow::generateLibraryId()
+QString MainWindow::generateLibraryId()
 {
     srand(time(NULL));
     QString bID;
@@ -264,7 +271,31 @@ void MainWindow::generateLibraryId()
     QString shelf = QString::number(rand() % 30);
     QString pos = QString::number(rand() % 30);
     bID.append(t), bID.append(g),bID.append(s), bID.append(shelf), bID.append(pos);
-    ui->library_id_input->setText(bID);
+    return bID;
+}
+
+QString MainWindow::generateLibraryIDED()
+{
+    srand(time(NULL));
+    QString bID;
+    QString t;
+    if(ui->type_edit->currentText() == bTypes[0])
+    {
+        t = "PT";
+    }
+    else if(ui->type_edit->currentText() == bTypes[1])
+    {
+        t = "OL";
+    }
+    else{
+        t = "S";
+    }
+    QChar g = ui->genre_edit->currentText().at(0);
+    QChar s = ui->subgenre_edit->currentText().at(0);
+    QString shelf = QString::number(rand() % 30);
+    QString pos = QString::number(rand() % 30);
+    bID.append(t), bID.append(g),bID.append(s), bID.append(shelf), bID.append(pos);
+    return bID;
 }
 
 void MainWindow::enableEdit()
@@ -319,14 +350,92 @@ void MainWindow::buildInfoTable()
 
 void MainWindow::removeBook()
 {
- loadMap();
- auto it=bMap.find(ui->isbn_edit->text().toUInt());
- bMap.erase (it);
- print_map();
- clearEditCB();
- write_to_file();
+    loadMap();
+    auto it=bMap.find(ui->isbn_edit->text().toUInt());
+    bMap.erase (it);
+    print_map();
+    clearEditCB();
+    write_to_file();
 }
 
+void MainWindow::buildGenreEdit()
+{
+    ui->genre_edit->clear();
+    this->bGenres.clear();
+    QStringList bGenre = {"Fiction", "Non Fiction"};
+    QStringList bSchoolGenre = {"12th Grade","11th Grade","10th Grade","9th Grade","8th Grade","7th Grade",
+                               "6th Grade","5th Grade","4th Grade","3rd Grade","2nd Grade","1st Grade"};
+    if(ui->type_edit->currentText() == bTypes[0] || ui->type_edit->currentText() == bTypes[1])
+    {
+        this->bGenres = bGenre;
+    }
+    else{
+        this->bGenres = bSchoolGenre;
+    }
+    ui->genre_edit->addItems(bGenres);
+
+    buildSubGenreEdit();
+}
+
+void MainWindow::buildSubGenreEdit()
+{
+    ui->subgenre_edit->clear();
+    this->bSubGenres.clear();
+    QStringList bSubGenre[2] = {
+        {				"Comics", "Fable", "Horror", "Adventure", "Myth", "Romance", "Novel", "Fiction", "Biography", "Drama", "Fictional" "History", "Westerns", "Poetry"
+        },
+        {				"Art", "Natural Sciences", "Social Sciences", "Leisure and Sport", "Self Empowerment", "Economics, Finances and Accounting",
+                        "Engineering", "Health and well-Being", "Cuisine", "Maps and Tourist Guides", "History", "IT", "Medicine", "Politics", "Religion",
+                        "Dictionaries and Encyclopedias"}
+    };
+    QStringList bSchoolSubGenre = {"Mathmatics", "Portuguese", "History and Geography", "Natural Sciences", "Physics and Chemestry", "Philosophy",
+                                   "Foreign Languages", "Arts and Design", "Technology"};
+    if(ui->genre_edit->currentText() == "Fiction")
+    {
+        this -> bSubGenres = bSubGenre[0];
+    }
+    else if(ui->genre_edit->currentText() == "Non Fiction"){
+        this -> bSubGenres = bSubGenre[1];
+    }
+    else{
+        this -> bSubGenres = bSchoolSubGenre;
+    }
+    ui->subgenre_edit->addItems(bSubGenres);
+}
+
+void MainWindow::att_lid_reg()
+{
+    ui->library_id_input->setText(generateLibraryId());
+}
+
+void MainWindow::att_lid_ed()
+{
+    ui->lid_edit->setText(generateLibraryIDED());
+}
+
+void MainWindow::editBook()
+{
+    loadMap();
+    auto it=bMap.find(ISBN_STORE);
+    bMap.erase(it);
+    validateRegister(1);
+    library_books new_book(
+                ui->title_edit->text(),
+                ui->author_edit->text(),
+                ui->type_edit->currentText(),
+                ui->genre_edit->currentText(),
+                ui->subgenre_edit->currentText(),
+                ui->publisher_edit->text(),
+                ui->isbn_edit->text().toULong(),
+                ui->year_edit->text().toInt(),
+                ui->qty_edit->text().toInt(),
+                true,
+                ui->lid_edit->text());
+
+    bMap.insert(ui->isbn_edit->text().toULong(), new_book);
+    write_to_file();
+    print_map();
+}
 
 void MainWindow::print_map()
 {
@@ -354,16 +463,25 @@ void MainWindow:: setConnections()
     connect(ui->filter_btn, &QPushButton::clicked, this, &MainWindow::update_by_filter);
     connect(ui->title_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_title_cb);
     connect(ui->isbn_filter_rb, &QPushButton::toggled, this, &MainWindow::toggle_isbn_entry);
-    //connect(ui->title_filter_cb, &QComboBox::textActivated, this, );
+
 
     connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::loadGenreComboBox);
-    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
+    connect(ui->type_cb,&QComboBox::textActivated, this, &MainWindow::att_lid_reg);
     connect(ui->genre_cb, &QComboBox::textActivated, this, &MainWindow::loadSubGenreComboBox);
-    connect(ui->genre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
-    connect(ui->subgenre_cb,&QComboBox::textActivated, this, &MainWindow::generateLibraryId);
+    connect(ui->genre_cb,&QComboBox::textActivated, this, &MainWindow::att_lid_reg);
+    connect(ui->subgenre_cb,&QComboBox::textActivated, this, &MainWindow::att_lid_reg);
     connect(ui->editable_check, &QCheckBox::toggled, this, &MainWindow::enableEdit);
     connect(ui->alphabet_cb, &QComboBox::textActivated, this, &MainWindow::buildTitles);
     connect(ui->remove_btn, &QPushButton::clicked, this, &MainWindow::removeBook);
+
+    connect(ui->type_edit, &QComboBox::textActivated, this, &MainWindow::buildGenreEdit);
+    connect(ui->genre_edit, &QComboBox::textActivated, this, &MainWindow::buildSubGenreEdit);
+
+    connect(ui->type_edit, &QComboBox::textActivated, this, &MainWindow::att_lid_ed);
+    connect(ui->genre_edit, &QComboBox::textActivated, this, &MainWindow::att_lid_ed);
+    connect(ui->subgenre_edit, &QComboBox::textActivated, this, &MainWindow::att_lid_ed);
+
+    connect(ui->edit_btn, &QPushButton::clicked, this, &MainWindow::editBook);
 }
 
 void MainWindow:: initFunctions()
@@ -396,24 +514,47 @@ void MainWindow::clearEditCB()
     ui->lid_edit->clear();
 }
 
-void MainWindow::validateRegister()
+void MainWindow::validateRegister(uint8_t opt)
 {
-    for (int i = 0 ;i <127 ;i++ ) {
-         if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
-         {
-             if(ui->title_input->text().at(0) == i)
-             {
-                 qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
-                 exit(0);
-             }
-             else{
-                 continue;
-             }
-         }
-    }
-    if(ui->isbn_input->text().length()>13)
+    if (opt == 0)
     {
-        qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
-        exit(0);
+        for (int i = 0 ;i <127 ;i++ ) {
+             if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
+             {
+                 if(ui->title_input->text().at(0) == i)
+                 {
+                     qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
+                     exit(0);
+                 }
+                 else{
+                     continue;
+                 }
+             }
+        }
+        if(ui->isbn_input->text().length()>13)
+        {
+            qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
+            exit(0);
+        }
+    }
+    else{
+        for (int i = 0 ;i <127 ;i++ ) {
+             if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
+             {
+                 if(ui->title_edit->text().at(0) == i)
+                 {
+                     qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
+                     exit(0);
+                 }
+                 else{
+                     continue;
+                 }
+             }
+        }
+        if(ui->isbn_edit->text().length()>13)
+        {
+            qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
+            exit(0);
+        }
     }
 }
