@@ -503,11 +503,9 @@ void MainWindow::tabChanged( )
      qDebug() << "Reached tab" << index << Qt::endl;
     if(index == 0)
     {
-        qDebug() << "Reached Tab 0\n";
         buildInfoTable();
     }
     else{
-        qDebug() << "Reached other Tab \n";
     }
 }
 
