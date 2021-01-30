@@ -25,8 +25,6 @@ private:
     //Add library books
     QMap<int, library_books> bMap;
 
-
-
     // TYPE -> GENRE -> SUBGENRE
     QStringList bTypes;
 
@@ -67,6 +65,8 @@ private:
 
     QString generateLibraryIDED();
 
+    void populateTable();
+
 private slots:
     void submit_btn_clicked();
     void update_by_filter();
@@ -84,6 +84,7 @@ private slots:
     void att_lid_reg();
     void att_lid_ed();
     void editBook();
+    void tabChanged();
 };
 
 #endif // MAINWINDOW_H

@@ -1,13 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "warning_popup.h"
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     this->setWindowTitle("Book Management System"); //Sets main window title
-    this->setMaximumSize(1280, 720); //to avoid widget misplacement
-
     //Connections
     setConnections();
 
@@ -298,6 +297,28 @@ QString MainWindow::generateLibraryIDED()
     return bID;
 }
 
+void MainWindow::populateTable()
+{
+    ui->reqTable->clear();
+    ui->reqTable->setRowCount(0);
+    ui->reqTable->setColumnCount(5);
+    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "COPIES" , "AVAILABILITY" };
+    ui->reqTable->setHorizontalHeaderLabels(labels);
+    loadMap();
+    ui->reqTable->setRowCount(bMap.size());
+    int col = 0;
+    for(auto it : bMap)
+    {
+        ui->reqTable->setItem(col, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
+        ui->reqTable->setItem(col, 1, new QTableWidgetItem(it.get_title()));
+        ui->reqTable->setItem(col, 2, new QTableWidgetItem(it.get_author()));
+        ui->reqTable->setItem(col, 3, new QTableWidgetItem(QString::number(it.get_number_of_copies())));
+        ui->reqTable->setItem(col, 4, new QTableWidgetItem(QString::number(it.get_availability())));
+        col++;
+    }
+}
+
+
 void MainWindow::enableEdit()
 {
     if(ui->editable_check->isChecked())
@@ -345,7 +366,28 @@ void MainWindow::buildTitles()
 
 void MainWindow::buildInfoTable()
 {
-    //TODO()
+    ui->infoTable->clear();
+    ui->infoTable->setRowCount(0);
+    ui->infoTable->setColumnCount(10);
+    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "TYPE", "GENRE", "SUBGENRE", "PUBLISHER", "YEAR OF EDITION", "LID" ,"AVAILABILITY" };
+    ui->infoTable->setHorizontalHeaderLabels(labels);
+    loadMap();
+    ui->infoTable->setRowCount(bMap.size());
+    int row = 0;
+    for(auto it : bMap)
+    {
+        ui->infoTable->setItem(row, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
+        ui->infoTable->setItem(row, 1, new QTableWidgetItem(it.get_title()));
+        ui->infoTable->setItem(row, 2, new QTableWidgetItem(it.get_author()));
+        ui->infoTable->setItem(row, 3, new QTableWidgetItem(it.get_type()));
+        ui->infoTable->setItem(row, 4, new QTableWidgetItem(it.get_genre()));
+        ui->infoTable->setItem(row, 5, new QTableWidgetItem(it.get_subgenre()));
+        ui->infoTable->setItem(row, 6, new QTableWidgetItem(it.get_publisher()));
+        ui->infoTable->setItem(row, 7, new QTableWidgetItem(QString::number(it.get_edition_year())));
+        ui->infoTable->setItem(row, 8, new QTableWidgetItem(it.get_library_id()));
+        ui->infoTable->setItem(row, 9, new QTableWidgetItem(QString::number(it.get_availability())));
+        row++;
+    }
 }
 
 void MainWindow::removeBook()
@@ -455,6 +497,20 @@ void MainWindow::print_map()
     }
 }
 
+void MainWindow::tabChanged( )
+{
+    int index = ui->MainWindowTab->currentIndex();
+     qDebug() << "Reached tab" << index << Qt::endl;
+    if(index == 0)
+    {
+        qDebug() << "Reached Tab 0\n";
+        buildInfoTable();
+    }
+    else{
+        qDebug() << "Reached other Tab \n";
+    }
+}
+
 
 void MainWindow:: setConnections()
 {
@@ -482,8 +538,8 @@ void MainWindow:: setConnections()
     connect(ui->subgenre_edit, &QComboBox::textActivated, this, &MainWindow::att_lid_ed);
 
     connect(ui->edit_btn, &QPushButton::clicked, this, &MainWindow::editBook);
+    connect(ui->MainWindowTab, &QTabWidget::currentChanged, this, &MainWindow::tabChanged);
 }
-
 void MainWindow:: initFunctions()
 {
     loadMap();
@@ -497,6 +553,7 @@ void MainWindow:: initFunctions()
 
     //test
     buildInfoTable();
+    populateTable();
 }
 
 void MainWindow::clearEditCB()
@@ -516,6 +573,7 @@ void MainWindow::clearEditCB()
 
 void MainWindow::validateRegister(uint8_t opt)
 {
+    //warning_popup new_pp;
     if (opt == 0)
     {
         for (int i = 0 ;i <127 ;i++ ) {
@@ -524,6 +582,7 @@ void MainWindow::validateRegister(uint8_t opt)
                  if(ui->title_input->text().at(0) == i)
                  {
                      qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
+                     //new_pp.show();
                      exit(0);
                  }
                  else{
@@ -558,3 +617,4 @@ void MainWindow::validateRegister(uint8_t opt)
         }
     }
 }
+

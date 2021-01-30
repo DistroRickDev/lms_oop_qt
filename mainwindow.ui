@@ -137,7 +137,7 @@ QComboBox:disabled{
        </widget>
       </item>
       <item>
-       <widget class="QTabWidget" name="tabWidget">
+       <widget class="QTabWidget" name="MainWindowTab">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -150,7 +150,7 @@ QComboBox:disabled{
          </font>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
@@ -168,9 +168,9 @@ QComboBox:disabled{
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QTabWidget" name="tabWidget_2">
+           <widget class="QTabWidget" name="RegEditTab">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="add_tab">
              <attribute name="title">
@@ -709,6 +709,11 @@ QComboBox:disabled{
          <attribute name="title">
           <string>Book Requests</string>
          </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_25">
+          <item>
+           <widget class="QTableWidget" name="reqTable"/>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>

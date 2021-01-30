@@ -13,16 +13,19 @@ SOURCES += \
     book.cpp \
     library_data.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    warning_popup.cpp
 
 HEADERS += \
     bauxutils.h \
     book.h \
     library_data.h \
-    mainwindow.h
+    mainwindow.h \
+    warning_popup.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    warning_popup.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
