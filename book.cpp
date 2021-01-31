@@ -1,6 +1,6 @@
 #include "book.h"
 
-Book:: Book(QString title, QString author, QString type, QString genre, QString sub_genre, QString publisher, uint64_t isbn , int yoe)
+Book:: Book(QString title, QString author, QString type, QString genre, QString sub_genre, QString publisher, unsigned long long  isbn , int yoe)
 {
     this->title = title;
     this->author = author;

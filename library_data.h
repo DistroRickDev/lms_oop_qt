@@ -10,7 +10,7 @@ protected:
     int number_of_copies;
     QString library_id;
 public:
-    library_books(QString title, QString author,QString type, QString genre, QString subgenre,QString publisher, uint64_t isbn, int year,
+    library_books(QString title, QString author,QString type, QString genre, QString subgenre,QString publisher, unsigned long long isbn, int year,
                   int num_c = 1, bool availability = true, QString li="N/A"):Book (title, author, type, genre, subgenre, publisher,isbn, year){
         this->availability = availability;
         number_of_copies = num_c;
@@ -19,7 +19,7 @@ public:
     //~library_books();
 
     QString get_author();
-    uint64_t get_isbn();
+    unsigned long long get_isbn();
     QString get_type();
     QString get_genre();
     QString get_title();
@@ -33,16 +33,5 @@ public:
     //generate library id
     void add_library_id();
 };
-
-
-/*
-    QString title;
-    QString author;
-    QString genre;
-    uint64_t isbn;
-    QString editor;
-    int year_of_edition;
-    Book(QString author = "N/A", uint64_t isbn = 000000000, QString genre = "N/A", QString title = "UNTITLED", QString editor="N/A", int yoe = 2000);
-*/
 
 #endif // LIBRARY_DATA_H

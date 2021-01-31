@@ -5,7 +5,7 @@ QString library_books::get_author()
     return author;
 }
 
-uint64_t library_books::get_isbn()
+unsigned long long int library_books::get_isbn()
 {
     return isbn;
 }

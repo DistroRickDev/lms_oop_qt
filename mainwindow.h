@@ -23,7 +23,7 @@ private:
     Ui::MainWindow *ui;
 
     //Add library books
-    QMap<int, library_books> bMap;
+    QMap<unsigned long long, library_books> bMap;
 
     // TYPE -> GENRE -> SUBGENRE
     QStringList bTypes;
@@ -35,7 +35,7 @@ private:
     //QStringList bSSubGenres; //type school
 
     //failsafe
-    int ISBN_STORE;
+    unsigned long long ISBN_STORE;
 
     //Map <-> IO functions
     void loadMap();

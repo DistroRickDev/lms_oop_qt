@@ -133,7 +133,7 @@ void MainWindow::loadMap()
         QString gen = in.readLine();
         QString subgen = in.readLine();
         QString pub = in.readLine();
-        int is = in.readLine().toULong();
+        unsigned long long is = in.readLine().toULongLong();
         int year = in.readLine().toInt();
         int num = in.readLine().toInt();
         int avail = in.readLine().toInt();
@@ -159,13 +159,13 @@ void MainWindow::submit_btn_clicked()
                 ui->genre_cb->currentText(),
                 ui->subgenre_cb->currentText(),
                 ui->publisher_input->text(),
-                ui->isbn_input->text().toULong(),
+                ui->isbn_input->text().toULongLong(),
                 ui->edition_year_date->text().toInt(),
                 ui->qty_sb->text().toInt(),
                 true,
                 ui->library_id_input->text());
 
-    bMap.insert(ui->isbn_input->text().toULong(), new_book);
+    bMap.insert(ui->isbn_input->text().toULongLong(), new_book);
     write_to_file();
     loadFilterComboBox();
     print_map();
@@ -299,8 +299,7 @@ QString MainWindow::generateLibraryIDED()
 
 void MainWindow::populateTable()
 {
-    ui->reqTable->clear();
-    ui->reqTable->setRowCount(0);
+    ui->reqTable->clearContents();
     ui->reqTable->setColumnCount(5);
     QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "COPIES" , "AVAILABILITY" };
     ui->reqTable->setHorizontalHeaderLabels(labels);
@@ -366,8 +365,7 @@ void MainWindow::buildTitles()
 
 void MainWindow::buildInfoTable()
 {
-    ui->infoTable->clear();
-    ui->infoTable->setRowCount(0);
+    ui->infoTable->clearContents();
     ui->infoTable->setColumnCount(10);
     QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "TYPE", "GENRE", "SUBGENRE", "PUBLISHER", "YEAR OF EDITION", "LID" ,"AVAILABILITY" };
     ui->infoTable->setHorizontalHeaderLabels(labels);
@@ -377,6 +375,7 @@ void MainWindow::buildInfoTable()
     for(auto it : bMap)
     {
         ui->infoTable->setItem(row, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
+        qDebug()<< it.get_isbn();
         ui->infoTable->setItem(row, 1, new QTableWidgetItem(it.get_title()));
         ui->infoTable->setItem(row, 2, new QTableWidgetItem(it.get_author()));
         ui->infoTable->setItem(row, 3, new QTableWidgetItem(it.get_type()));
@@ -393,7 +392,7 @@ void MainWindow::buildInfoTable()
 void MainWindow::removeBook()
 {
     loadMap();
-    auto it=bMap.find(ui->isbn_edit->text().toUInt());
+    auto it=bMap.find(ui->isbn_edit->text().toULongLong());
     bMap.erase (it);
     print_map();
     clearEditCB();
@@ -468,13 +467,13 @@ void MainWindow::editBook()
                 ui->genre_edit->currentText(),
                 ui->subgenre_edit->currentText(),
                 ui->publisher_edit->text(),
-                ui->isbn_edit->text().toULong(),
+                ui->isbn_edit->text().toULongLong(),
                 ui->year_edit->text().toInt(),
                 ui->qty_edit->text().toInt(),
                 true,
                 ui->lid_edit->text());
 
-    bMap.insert(ui->isbn_edit->text().toULong(), new_book);
+    bMap.insert(ui->isbn_edit->text().toULongLong(), new_book);
     write_to_file();
     print_map();
 }
@@ -500,10 +499,14 @@ void MainWindow::print_map()
 void MainWindow::tabChanged( )
 {
     int index = ui->MainWindowTab->currentIndex();
-     qDebug() << "Reached tab" << index << Qt::endl;
+     //qDebug() << "Reached tab" << index << Qt::endl;
     if(index == 0)
     {
         buildInfoTable();
+    }
+    else if(index == 2)
+    {
+        populateTable();
     }
     else{
     }
@@ -591,6 +594,10 @@ void MainWindow::validateRegister(uint8_t opt)
         if(ui->isbn_input->text().length()>13)
         {
             qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
+            exit(0);
+        }
+        if(ui->qty_sb->value() <=0){
+            qDebug() << "You can't register 0 books or less\n";
             exit(0);
         }
     }
