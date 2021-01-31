@@ -357,7 +357,11 @@ QComboBox:disabled{
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="qty_sb"/>
+                   <widget class="QSpinBox" name="qty_sb">
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </item>

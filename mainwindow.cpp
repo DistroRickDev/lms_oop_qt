@@ -32,7 +32,7 @@ void MainWindow::buildbGenres()
     this->bGenres.clear();
     QStringList bGenre = {"Fiction", "Non Fiction"};
     QStringList bSchoolGenre = {"12th Grade","11th Grade","10th Grade","9th Grade","8th Grade","7th Grade",
-                               "6th Grade","5th Grade","4th Grade","3rd Grade","2nd Grade","1st Grade"};
+                                "6th Grade","5th Grade","4th Grade","3rd Grade","2nd Grade","1st Grade"};
     if(ui->type_cb->currentText() == bTypes[0] || ui->type_cb->currentText() == bTypes[1])
     {
         this->bGenres = bGenre;
@@ -69,7 +69,7 @@ void MainWindow::buildbSubGenres()
 void MainWindow::loadTypeComboBox()
 {
     buildbTypes();
-    ui->type_cb->addItems(bTypes);    
+    ui->type_cb->addItems(bTypes);
 }
 
 void MainWindow::loadGenreComboBox()
@@ -174,7 +174,6 @@ void MainWindow::submit_btn_clicked()
 
 void MainWindow::update_by_filter()
 {
-
     ui->type_edit->clear();
     ui->type_edit->addItems(bTypes);
     buildGenreEdit();
@@ -405,7 +404,7 @@ void MainWindow::buildGenreEdit()
     this->bGenres.clear();
     QStringList bGenre = {"Fiction", "Non Fiction"};
     QStringList bSchoolGenre = {"12th Grade","11th Grade","10th Grade","9th Grade","8th Grade","7th Grade",
-                               "6th Grade","5th Grade","4th Grade","3rd Grade","2nd Grade","1st Grade"};
+                                "6th Grade","5th Grade","4th Grade","3rd Grade","2nd Grade","1st Grade"};
     if(ui->type_edit->currentText() == bTypes[0] || ui->type_edit->currentText() == bTypes[1])
     {
         this->bGenres = bGenre;
@@ -423,14 +422,18 @@ void MainWindow::buildSubGenreEdit()
     ui->subgenre_edit->clear();
     this->bSubGenres.clear();
     QStringList bSubGenre[2] = {
-        {				"Comics", "Fable", "Horror", "Adventure", "Myth", "Romance", "Novel", "Fiction", "Biography", "Drama", "Fictional" "History", "Westerns", "Poetry"
+        {
+            "Comics", "Fable", "Horror", "Adventure", "Myth", "Romance", "Novel", "Fiction", "Biography", "Drama", "Fictional" "History", "Westerns", "Poetry"
         },
-        {				"Art", "Natural Sciences", "Social Sciences", "Leisure and Sport", "Self Empowerment", "Economics, Finances and Accounting",
-                        "Engineering", "Health and well-Being", "Cuisine", "Maps and Tourist Guides", "History", "IT", "Medicine", "Politics", "Religion",
-                        "Dictionaries and Encyclopedias"}
+        {
+            "Art", "Natural Sciences", "Social Sciences", "Leisure and Sport", "Self Empowerment", "Economics, Finances and Accounting",
+            "Engineering", "Health and well-Being", "Cuisine", "Maps and Tourist Guides", "History", "IT", "Medicine", "Politics", "Religion",
+            "Dictionaries and Encyclopedias"
+        }
     };
-    QStringList bSchoolSubGenre = {"Mathmatics", "Portuguese", "History and Geography", "Natural Sciences", "Physics and Chemestry", "Philosophy",
-                                   "Foreign Languages", "Arts and Design", "Technology"};
+    QStringList bSchoolSubGenre = {
+        "Mathmatics", "Portuguese", "History and Geography", "Natural Sciences", "Physics and Chemestry", "Philosophy",
+        "Foreign Languages", "Arts and Design", "Technology"};
     if(ui->genre_edit->currentText() == "Fiction")
     {
         this -> bSubGenres = bSubGenre[0];
@@ -499,7 +502,7 @@ void MainWindow::print_map()
 void MainWindow::tabChanged( )
 {
     int index = ui->MainWindowTab->currentIndex();
-     //qDebug() << "Reached tab" << index << Qt::endl;
+    //qDebug() << "Reached tab" << index << Qt::endl;
     if(index == 0)
     {
         buildInfoTable();
@@ -578,42 +581,38 @@ void MainWindow::validateRegister(uint8_t opt)
     if (opt == 0)
     {
         for (int i = 0 ;i <127 ;i++ ) {
-             if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
-             {
-                 if(ui->title_input->text().at(0) == i)
-                 {
-                     qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
-                     //new_pp.show();
-                     exit(0);
-                 }
-                 else{
-                     continue;
-                 }
-             }
+            if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
+            {
+                if(ui->title_input->text().at(0) == i)
+                {
+                    qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
+                    //new_pp.show();
+                    exit(0);
+                }
+                else{
+                    continue;
+                }
+            }
         }
         if(ui->isbn_input->text().length()>13)
         {
             qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
             exit(0);
         }
-        if(ui->qty_sb->value() <=0){
-            qDebug() << "You can't register 0 books or less\n";
-            exit(0);
-        }
     }
     else{
         for (int i = 0 ;i <127 ;i++ ) {
-             if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
-             {
-                 if(ui->title_edit->text().at(0) == i)
-                 {
-                     qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
-                     exit(0);
-                 }
-                 else{
-                     continue;
-                 }
-             }
+            if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
+            {
+                if(ui->title_edit->text().at(0) == i)
+                {
+                    qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
+                    exit(0);
+                }
+                else{
+                    continue;
+                }
+            }
         }
         if(ui->isbn_edit->text().length()>13)
         {
