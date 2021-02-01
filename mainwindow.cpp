@@ -151,25 +151,25 @@ void MainWindow::loadMap()
 void MainWindow::submit_btn_clicked()
 {
     loadMap();
-    validateRegister(0);
-    library_books new_book(
-                ui->title_input->text(),
-                ui->author_input->text(),
-                ui->type_cb->currentText(),
-                ui->genre_cb->currentText(),
-                ui->subgenre_cb->currentText(),
-                ui->publisher_input->text(),
-                ui->isbn_input->text().toULongLong(),
-                ui->edition_year_date->text().toInt(),
-                ui->qty_sb->text().toInt(),
-                true,
-                ui->library_id_input->text());
+    if(validateRegister(0)){library_books new_book(
+                    ui->title_input->text(),
+                    ui->author_input->text(),
+                    ui->type_cb->currentText(),
+                    ui->genre_cb->currentText(),
+                    ui->subgenre_cb->currentText(),
+                    ui->publisher_input->text(),
+                    ui->isbn_input->text().toULongLong(),
+                    ui->edition_year_date->text().toInt(),
+                    ui->qty_sb->text().toInt(),
+                    true,
+                    ui->library_id_input->text());
 
-    bMap.insert(ui->isbn_input->text().toULongLong(), new_book);
-    write_to_file();
-    loadFilterComboBox();
-    print_map();
-    clear_lineEdit();
+        bMap.insert(ui->isbn_input->text().toULongLong(), new_book);
+        write_to_file();
+        loadFilterComboBox();
+        print_map();
+        clear_lineEdit();
+    }
 }
 
 void MainWindow::update_by_filter()
@@ -316,7 +316,6 @@ void MainWindow::populateTable()
     }
 }
 
-
 void MainWindow::enableEdit()
 {
     if(ui->editable_check->isChecked())
@@ -462,23 +461,24 @@ void MainWindow::editBook()
     loadMap();
     auto it=bMap.find(ISBN_STORE);
     bMap.erase(it);
-    validateRegister(1);
-    library_books new_book(
-                ui->title_edit->text(),
-                ui->author_edit->text(),
-                ui->type_edit->currentText(),
-                ui->genre_edit->currentText(),
-                ui->subgenre_edit->currentText(),
-                ui->publisher_edit->text(),
-                ui->isbn_edit->text().toULongLong(),
-                ui->year_edit->text().toInt(),
-                ui->qty_edit->text().toInt(),
-                true,
-                ui->lid_edit->text());
+    if(validateRegister(1)){
+        library_books new_book(
+                    ui->title_edit->text(),
+                    ui->author_edit->text(),
+                    ui->type_edit->currentText(),
+                    ui->genre_edit->currentText(),
+                    ui->subgenre_edit->currentText(),
+                    ui->publisher_edit->text(),
+                    ui->isbn_edit->text().toULongLong(),
+                    ui->year_edit->text().toInt(),
+                    ui->qty_edit->text().toInt(),
+                    true,
+                    ui->lid_edit->text());
 
-    bMap.insert(ui->isbn_edit->text().toULongLong(), new_book);
-    write_to_file();
-    print_map();
+        bMap.insert(ui->isbn_edit->text().toULongLong(), new_book);
+        write_to_file();
+        print_map();
+    }
 }
 
 void MainWindow::print_map()
@@ -575,9 +575,8 @@ void MainWindow::clearEditCB()
     ui->lid_edit->clear();
 }
 
-void MainWindow::validateRegister(uint8_t opt)
+bool MainWindow::validateRegister(uint8_t opt)
 {
-    //warning_popup new_pp;
     if (opt == 0)
     {
         for (int i = 0 ;i <127 ;i++ ) {
@@ -585,40 +584,71 @@ void MainWindow::validateRegister(uint8_t opt)
             {
                 if(ui->title_input->text().at(0) == i)
                 {
-                    qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
-                    //new_pp.show();
-                    exit(0);
+                    qDebug() <<"TITLE FIRST CHAR IS INVALID";
+                    generateError("TITLE FIRST CHAR IS INVALID");
+                    return false;
                 }
                 else{
                     continue;
                 }
             }
         }
-        if(ui->isbn_input->text().length()>13)
+        if(ui->isbn_input->text().length()!=13)
         {
-            qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
-            exit(0);
+            qDebug() << "ISBN DIFFERENT THAN 13 DIGITS";
+            generateError("ISBN DIFFERENT THAN 13 DIGITS");
+            return false;
         }
+        for(auto it: bMap)
+        {
+            if(it.get_isbn() == ui->isbn_input->text().toULongLong())
+            {
+                qDebug()<< "ISBN ALREADY REGISTERED";
+                generateError("ISBN ALREADY REGISTERED");
+                return false;
+            }
+        }
+        return true;
     }
     else{
-        for (int i = 0 ;i <127 ;i++ ) {
+        for (int i = 0; i <127 ;i++ ) {
             if((i >= 0 && i <= 47) || (i >= 58 && i <= 64) || (i >= 91 && i <= 96) || i >= 123)
             {
                 if(ui->title_edit->text().at(0) == i)
                 {
-                    qDebug() <<"TITLE FIRTS CHAR IS INVALID\n";
-                    exit(0);
+                    qDebug() <<"TITLE FIRTS CHAR IS INVALID";
+                    generateError("TITLE FIRST CHAR IS INVALID");
+                    return false;
                 }
                 else{
                     continue;
                 }
             }
         }
-        if(ui->isbn_edit->text().length()>13)
+        if(ui->isbn_edit->text().length()!=13)
         {
-            qDebug() << "ISBN BIGGER THAN 13 DIGITS\n";
-            exit(0);
+            qDebug() << "ISBN DIFFERENT THAN 13 DIGITS\n";
+            generateError("ISBN DIFFERENT THAN 13 DIGITS");
+            return false;
+        }
+        for(auto it: bMap)
+        {
+            if(it.get_isbn() == ui->isbn_input->text().toULongLong() && ui->isbn_input->text().toULongLong() != ISBN_STORE)
+            {
+                qDebug()<< "ISBN ALREADY REGISTERED";
+                generateError("ISBN ALREADY REGISTERED");
+                return false;
+            }
         }
     }
+    return true;
+}
+
+void MainWindow::generateError(QString err)
+{
+   warning_popup error;
+   error.setModal(true);
+   error.setMessage(err);
+   error.exec();
 }
 

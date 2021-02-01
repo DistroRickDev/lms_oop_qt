@@ -59,13 +59,15 @@ private:
 
     void clearEditCB();
 
-    void validateRegister(uint8_t opt);
+    bool validateRegister(uint8_t opt);
 
     QString generateLibraryId();
 
     QString generateLibraryIDED();
 
     void populateTable();
+
+    void generateError(QString);
 
 private slots:
     void submit_btn_clicked();

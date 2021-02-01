@@ -14,9 +14,10 @@ class warning_popup : public QDialog
 public:
     explicit warning_popup(QWidget *parent = nullptr);
     ~warning_popup();
-
+    void setMessage(QString);
 private:
     Ui::warning_popup *ui;
+
 };
 
 #endif // WARNING_POPUP_H

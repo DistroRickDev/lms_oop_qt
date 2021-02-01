@@ -1,5 +1,6 @@
 #include "warning_popup.h"
 #include "ui_warning_popup.h"
+#include <QDebug>
 
 warning_popup::warning_popup(QWidget *parent) :
     QDialog(parent),
@@ -12,3 +13,9 @@ warning_popup::~warning_popup()
 {
     delete ui;
 }
+
+void warning_popup::setMessage(QString m)
+{
+    ui->warningMessageLabel->setText(m);
+}
+
