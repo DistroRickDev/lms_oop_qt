@@ -150,7 +150,7 @@ QComboBox:disabled{
          </font>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
@@ -158,7 +158,11 @@ QComboBox:disabled{
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QTableWidget" name="infoTable"/>
+           <widget class="QTableWidget" name="infoTable">
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>120</number>
+            </attribute>
+           </widget>
           </item>
          </layout>
         </widget>
