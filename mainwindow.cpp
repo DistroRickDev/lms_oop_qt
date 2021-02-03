@@ -106,7 +106,7 @@ void MainWindow::write_to_file()
         out << it.get_publisher() << Qt::endl;
         out << it.get_isbn()<< Qt::endl;
         out << it.get_edition_year() << Qt::endl;
-        out << it.get_number_of_copies() << Qt::endl;
+        out << it.get_number_of_current_books() << Qt::endl;
         out << it.get_availability() << Qt::endl;
         out << it.get_library_id() << Qt::endl;
     }
@@ -189,7 +189,7 @@ void MainWindow::update_by_filter()
                 ui->publisher_edit->setText(it.get_publisher());
                 ui->lid_edit->setText(it.get_library_id());
                 ui->year_edit->setDate(QDate(it.get_edition_year(), 1, 1));
-                ui->qty_edit->setValue(it.get_number_of_copies());
+                ui->qty_edit->setValue(it.get_number_of_current_books());
             }
         }
     }
@@ -300,7 +300,7 @@ void MainWindow::populateTable()
 {
     ui->reqTable->clearContents();
     ui->reqTable->setColumnCount(5);
-    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "COPIES" , "AVAILABILITY" };
+    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "COPIES AVAILABLE" , "AVAILABILITY"};
     ui->reqTable->setHorizontalHeaderLabels(labels);
     loadMap();
     ui->reqTable->setRowCount(bMap.size());
@@ -310,7 +310,7 @@ void MainWindow::populateTable()
         ui->reqTable->setItem(col, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
         ui->reqTable->setItem(col, 1, new QTableWidgetItem(it.get_title()));
         ui->reqTable->setItem(col, 2, new QTableWidgetItem(it.get_author()));
-        ui->reqTable->setItem(col, 3, new QTableWidgetItem(QString::number(it.get_number_of_copies())));
+        ui->reqTable->setItem(col, 3, new QTableWidgetItem(QString::number(it.get_number_of_current_books())));
         ui->reqTable->setItem(col, 4, new QTableWidgetItem(QString::number(it.get_availability())));
         col++;
     }
@@ -365,7 +365,7 @@ void MainWindow::buildInfoTable()
 {
     ui->infoTable->clearContents();
     ui->infoTable->setColumnCount(10);
-    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "TYPE", "GENRE", "SUBGENRE", "PUBLISHER", "YEAR OF EDITION", "LID" ,"AVAILABILITY" };
+    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "TYPE", "GENRE", "SUBGENRE", "PUBLISHER", "YEAR OF EDITION", "LIB_ID" ,"AVAILABILITY" };
     ui->infoTable->setHorizontalHeaderLabels(labels);
     loadMap();
     ui->infoTable->setRowCount(bMap.size());
@@ -493,7 +493,7 @@ void MainWindow::print_map()
         qDebug() << "ISBN:" << it.get_isbn();
         qDebug() << "Edition Year" << it.get_edition_year();
         qDebug() << "Library ID:" << it.get_library_id();
-        qDebug() << "Number of Copies" << it.get_number_of_copies();
+        qDebug() << "Number of Copies" << it.get_number_of_current_books();
         qDebug() << "Availability" << it.get_availability();
         //qDebug() << Qt::endl;
     }
@@ -513,6 +513,27 @@ void MainWindow::tabChanged( )
     }
     else{
     }
+}
+
+void MainWindow::requestBook()
+{
+  if(ui->reqTable->currentColumn() == 0){
+    qDebug() <<"Current selected item is: "<< ui->reqTable->currentItem()->text();
+    auto it = bMap.find(ui->reqTable->currentItem()->text().toULongLong());
+    it->decrement_number();
+    bMap.insert(it.key(), it.value());
+  }
+  else{
+   //qDebug() <<"Please select the ISBN columsn";
+  generateError("PLEASE SELECT AN ISBN ITEM");
+  }
+    write_to_file();
+    populateTable();
+ }
+
+void MainWindow::returnBook()
+{
+
 }
 
 
@@ -543,6 +564,8 @@ void MainWindow:: setConnections()
 
     connect(ui->edit_btn, &QPushButton::clicked, this, &MainWindow::editBook);
     connect(ui->MainWindowTab, &QTabWidget::currentChanged, this, &MainWindow::tabChanged);
+
+    connect(ui->reqBookBtn, &QPushButton::clicked, this, &MainWindow::requestBook);
 }
 void MainWindow:: initFunctions()
 {

@@ -45,9 +45,9 @@ bool library_books::get_availability()
     return availability;
 }
 
-int library_books::get_number_of_copies()
+int library_books::get_number_of_current_books()
 {
-    return number_of_copies;
+    return number_of_current_books;
 }
 
 int library_books::get_edition_year()
@@ -55,8 +55,28 @@ int library_books::get_edition_year()
     return edition_year;
 }
 
-/*
-void library_books::add_library_id(QString id)
+void library_books::setAvaialbility(bool avail)
 {
-    this->library_id = id;
-}*/
+    this->availability = avail;
+}
+
+void library_books::increment_number()
+{
+    number_of_current_books+=1;
+}
+
+void library_books::decrement_number()
+{
+    number_of_current_books-=1;
+}
+
+void library_books::set_request_date(QDate date)
+{
+    request_date = date;
+}
+
+void library_books::set_return_date(QDate date)
+{
+    return_date = date;
+}
+

@@ -87,6 +87,8 @@ private slots:
     void att_lid_ed();
     void editBook();
     void tabChanged();
+    void requestBook();
+    void returnBook();
 };
 
 #endif // MAINWINDOW_H

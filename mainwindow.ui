@@ -150,7 +150,7 @@ QComboBox:disabled{
          </font>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
@@ -160,7 +160,10 @@ QComboBox:disabled{
           <item>
            <widget class="QTableWidget" name="infoTable">
             <attribute name="horizontalHeaderMinimumSectionSize">
-             <number>120</number>
+             <number>122</number>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>122</number>
             </attribute>
            </widget>
           </item>
@@ -730,9 +733,106 @@ QComboBox:disabled{
          <attribute name="title">
           <string>Book Requests</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_25">
+         <layout class="QHBoxLayout" name="horizontalLayout_26">
           <item>
-           <widget class="QTableWidget" name="reqTable"/>
+           <layout class="QHBoxLayout" name="horizontalLayout_25">
+            <item>
+             <widget class="QTableWidget" name="reqTable">
+              <property name="minimumSize">
+               <size>
+                <width>760</width>
+                <height>200</height>
+               </size>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SingleSelection</enum>
+              </property>
+              <attribute name="horizontalHeaderMinimumSectionSize">
+               <number>183</number>
+              </attribute>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>183</number>
+              </attribute>
+              <attribute name="horizontalHeaderHighlightSections">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="verticalHeaderHighlightSections">
+               <bool>false</bool>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_7">
+              <item>
+               <widget class="QCalendarWidget" name="reqCalendar">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>300</width>
+                  <height>300</height>
+                 </size>
+                </property>
+                <property name="firstDayOfWeek">
+                 <enum>Qt::Sunday</enum>
+                </property>
+                <property name="gridVisible">
+                 <bool>false</bool>
+                </property>
+                <property name="horizontalHeaderFormat">
+                 <enum>QCalendarWidget::NoHorizontalHeader</enum>
+                </property>
+                <property name="verticalHeaderFormat">
+                 <enum>QCalendarWidget::NoVerticalHeader</enum>
+                </property>
+                <property name="dateEditEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="reqBookBtn">
+                <property name="maximumSize">
+                 <size>
+                  <width>300</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Request Book</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="returnBookBtn">
+                <property name="maximumSize">
+                 <size>
+                  <width>300</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Return Book</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
