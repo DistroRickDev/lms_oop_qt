@@ -110,8 +110,6 @@ void MainWindow::write_to_file()
         out << it.get_number_of_current_books() << Qt::endl;
         out << it.get_availability() << Qt::endl;
         out << it.get_library_id() << Qt::endl;
-        out << it.get_request_date().toJulianDay()<< Qt::endl;
-        out << it.get_return_date().toJulianDay()<< Qt::endl;
     }
     book_io.close();
     qDebug() << "FILE WRITTEN" << Qt::endl;
@@ -177,6 +175,8 @@ void MainWindow::write_to_req_file()
         out << it->get_number_of_current_books() << Qt::endl;
         out << it->get_availability() << Qt::endl;
         out << it->get_library_id() << Qt::endl;
+        out << it->get_request_date().toString() <<Qt::endl;
+         out << it->get_return_date().toString() <<Qt::endl;
     }
     requests_io.close();
     qDebug() << "REQUEST FILE WRITTEN" << Qt::endl;
@@ -211,7 +211,7 @@ void MainWindow::loadRequestMaps()
         QString libid = in.readLine();
         QDate req = QDate::fromString(in.readLine());
         QDate ret = QDate::fromString(in.readLine());
-        library_books new_book(tit,auth,typ, gen, subgen, pub, is, year, num, numc, av, libid,req, ret);
+        library_books new_book(tit,auth,typ, gen, subgen, pub, is, year, num, numc, av, libid, req, ret);
         bRequest.insert(readerID, new_book);
     }
     requests_file.close();
