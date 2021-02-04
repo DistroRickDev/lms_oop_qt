@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1105</width>
-    <height>553</height>
+    <width>1220</width>
+    <height>648</height>
    </rect>
   </property>
   <property name="font">
@@ -733,36 +733,80 @@ QComboBox:disabled{
          <attribute name="title">
           <string>Book Requests</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_26">
+         <layout class="QVBoxLayout" name="verticalLayout_9">
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_25">
+           <layout class="QHBoxLayout" name="horizontalLayout_27">
             <item>
-             <widget class="QTableWidget" name="reqTable">
-              <property name="minimumSize">
-               <size>
-                <width>760</width>
-                <height>200</height>
-               </size>
-              </property>
-              <property name="selectionMode">
-               <enum>QAbstractItemView::SingleSelection</enum>
-              </property>
-              <attribute name="horizontalHeaderMinimumSectionSize">
-               <number>183</number>
-              </attribute>
-              <attribute name="horizontalHeaderDefaultSectionSize">
-               <number>183</number>
-              </attribute>
-              <attribute name="horizontalHeaderHighlightSections">
-               <bool>false</bool>
-              </attribute>
-              <attribute name="verticalHeaderHighlightSections">
-               <bool>false</bool>
-              </attribute>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QTableWidget" name="reqTable">
+                <property name="minimumSize">
+                 <size>
+                  <width>1000</width>
+                  <height>200</height>
+                 </size>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::SingleSelection</enum>
+                </property>
+                <attribute name="horizontalHeaderMinimumSectionSize">
+                 <number>183</number>
+                </attribute>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>183</number>
+                </attribute>
+                <attribute name="horizontalHeaderHighlightSections">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderHighlightSections">
+                 <bool>false</bool>
+                </attribute>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_26">
+                <item>
+                 <widget class="QPushButton" name="reqBookBtn">
+                  <property name="maximumSize">
+                   <size>
+                    <width>300</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Request Book</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="returnBookBtn">
+                  <property name="maximumSize">
+                   <size>
+                    <width>300</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string>Return Book</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_7">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>From:</string>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QCalendarWidget" name="reqCalendar">
                 <property name="enabled">
@@ -771,7 +815,7 @@ QComboBox:disabled{
                 <property name="maximumSize">
                  <size>
                   <width>300</width>
-                  <height>300</height>
+                  <height>180</height>
                  </size>
                 </property>
                 <property name="firstDayOfWeek">
@@ -792,40 +836,54 @@ QComboBox:disabled{
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="reqBookBtn">
-                <property name="maximumSize">
-                 <size>
-                  <width>300</width>
-                  <height>60</height>
-                 </size>
-                </property>
+               <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>Request Book</string>
+                 <string>To:</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="returnBookBtn">
+               <widget class="QCalendarWidget" name="returnCalendar">
                 <property name="maximumSize">
                  <size>
                   <width>300</width>
-                  <height>60</height>
+                  <height>180</height>
                  </size>
                 </property>
-                <property name="text">
-                 <string>Return Book</string>
+                <property name="horizontalHeaderFormat">
+                 <enum>QCalendarWidget::NoHorizontalHeader</enum>
+                </property>
+                <property name="verticalHeaderFormat">
+                 <enum>QCalendarWidget::NoVerticalHeader</enum>
                 </property>
                </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_25">
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>READER NUMBER: </string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="readerNumberInput"/>
+                </item>
+               </layout>
               </item>
               <item>
                <spacer name="verticalSpacer_2">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
                 </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>40</height>
+                  <height>120</height>
                  </size>
                 </property>
                </spacer>
@@ -834,7 +892,25 @@ QComboBox:disabled{
             </item>
            </layout>
           </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
+        </widget>
+        <widget class="QWidget" name="book_availability">
+         <attribute name="title">
+          <string>Book Availability</string>
+         </attribute>
         </widget>
        </widget>
       </item>

@@ -50,6 +50,11 @@ int library_books::get_number_of_current_books()
     return number_of_current_books;
 }
 
+int library_books::get_number_of_copies()
+{
+    return number_of_copies;
+}
+
 int library_books::get_edition_year()
 {
     return edition_year;
@@ -78,5 +83,15 @@ void library_books::set_request_date(QDate date)
 void library_books::set_return_date(QDate date)
 {
     return_date = date;
+}
+
+QDate library_books::get_request_date()
+{
+  return request_date;
+}
+
+QDate library_books::get_return_date()
+{
+    return return_date;
 }
 

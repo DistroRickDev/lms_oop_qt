@@ -106,14 +106,16 @@ void MainWindow::write_to_file()
         out << it.get_publisher() << Qt::endl;
         out << it.get_isbn()<< Qt::endl;
         out << it.get_edition_year() << Qt::endl;
+        out << it.get_number_of_copies() << Qt::endl;
         out << it.get_number_of_current_books() << Qt::endl;
         out << it.get_availability() << Qt::endl;
         out << it.get_library_id() << Qt::endl;
+        out << it.get_request_date().toJulianDay()<< Qt::endl;
+        out << it.get_return_date().toJulianDay()<< Qt::endl;
     }
     book_io.close();
     qDebug() << "FILE WRITTEN" << Qt::endl;
 }
-
 
 void MainWindow::loadMap()
 {
@@ -136,16 +138,97 @@ void MainWindow::loadMap()
         unsigned long long is = in.readLine().toULongLong();
         int year = in.readLine().toInt();
         int num = in.readLine().toInt();
+        int numc = in.readLine().toInt();
         int avail = in.readLine().toInt();
         //qDebug() << "DEBUG AVAIL: " <<avail;
         if (avail == 0){
             av = false;
         }
         QString libid = in.readLine();
-        library_books new_book(tit,auth,typ, gen, subgen, pub, is, year, num, av, libid);
+        library_books new_book(tit,auth,typ, gen, subgen, pub, is, year, num, numc, av, libid);
         bMap.insert(is, new_book);
     }
     books_file.close();
+}
+
+
+
+void MainWindow::write_to_req_file()
+{
+    QFile requests_io("requests.txt");
+    if(!requests_io.open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
+    {
+        qDebug()<< "Error Loading Data File\n";
+    }
+    QTextStream out(&requests_io);
+    //out << "The magic number is: " << 49 << "\n";
+    for(auto it = bRequest.begin(); it != bRequest.end(); it++)
+    {
+        out << it.key() << Qt::endl;
+        out << it->get_title() << Qt::endl;
+        out << it->get_author()<< Qt::endl;
+        out << it->get_type() << Qt::endl;
+        out << it->get_genre()<< Qt::endl;
+        out << it->get_subgenre() << Qt::endl;
+        out << it->get_publisher() << Qt::endl;
+        out << it->get_isbn()<< Qt::endl;
+        out << it->get_edition_year() << Qt::endl;
+        out << it->get_number_of_copies() << Qt::endl;
+        out << it->get_number_of_current_books() << Qt::endl;
+        out << it->get_availability() << Qt::endl;
+        out << it->get_library_id() << Qt::endl;
+    }
+    requests_io.close();
+    qDebug() << "REQUEST FILE WRITTEN" << Qt::endl;
+}
+
+void MainWindow::loadRequestMaps()
+{
+    QFile requests_file("requests.txt");
+    if(!requests_file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug() << "Invalid file";
+    }
+
+    QTextStream in(&requests_file);
+    while(!in.atEnd()){
+        unsigned int readerID = in.readLine().toUInt();
+        bool av = true;
+        QString tit = in.readLine();
+        QString auth = in.readLine();
+        QString typ = in.readLine();
+        QString gen = in.readLine();
+        QString subgen = in.readLine();
+        QString pub = in.readLine();
+        unsigned long long is = in.readLine().toULongLong();
+        int year = in.readLine().toInt();
+        int num = in.readLine().toInt();
+        int numc = in.readLine().toInt();
+        int avail = in.readLine().toInt();
+        //qDebug() << "DEBUG AVAIL: " <<avail;
+        if (avail == 0){
+            av = false;
+        }
+        QString libid = in.readLine();
+        QDate req = QDate::fromString(in.readLine());
+        QDate ret = QDate::fromString(in.readLine());
+        library_books new_book(tit,auth,typ, gen, subgen, pub, is, year, num, numc, av, libid,req, ret);
+        bRequest.insert(readerID, new_book);
+    }
+    requests_file.close();
+}
+
+
+void MainWindow::print_map_requests()
+{
+   for(auto it = bRequest.begin(); it != bRequest.end(); it++)
+    {
+    qDebug() << "Reader Number:" << it.key();
+    qDebug() << "Title" << it->get_title();
+    qDebug() << "ISBN:" << it->get_isbn();
+    qDebug() << "Library ID:" << it->get_library_id();
+    qDebug() << "Request Date:" << it->get_request_date();
+    qDebug() << "Return Date:" << it->get_return_date();
+    }
 }
 
 void MainWindow::submit_btn_clicked()
@@ -161,8 +244,10 @@ void MainWindow::submit_btn_clicked()
                     ui->isbn_input->text().toULongLong(),
                     ui->edition_year_date->text().toInt(),
                     ui->qty_sb->text().toInt(),
+                    ui->qty_sb->text().toInt(),
                     true,
-                    ui->library_id_input->text());
+                    ui->library_id_input->text()
+                    );
 
         bMap.insert(ui->isbn_input->text().toULongLong(), new_book);
         write_to_file();
@@ -460,6 +545,7 @@ void MainWindow::editBook()
 {
     loadMap();
     auto it=bMap.find(ISBN_STORE);
+    int ccn = it->get_number_of_current_books();
     bMap.erase(it);
     if(validateRegister(1)){
         library_books new_book(
@@ -472,6 +558,7 @@ void MainWindow::editBook()
                     ui->isbn_edit->text().toULongLong(),
                     ui->year_edit->text().toInt(),
                     ui->qty_edit->text().toInt(),
+                    ccn,
                     true,
                     ui->lid_edit->text());
 
@@ -517,23 +604,51 @@ void MainWindow::tabChanged( )
 
 void MainWindow::requestBook()
 {
-  if(ui->reqTable->currentColumn() == 0){
-    qDebug() <<"Current selected item is: "<< ui->reqTable->currentItem()->text();
-    auto it = bMap.find(ui->reqTable->currentItem()->text().toULongLong());
-    it->decrement_number();
-    bMap.insert(it.key(), it.value());
-  }
-  else{
-   //qDebug() <<"Please select the ISBN columsn";
-  generateError("PLEASE SELECT AN ISBN ITEM");
-  }
+    if(ui->reqTable->currentColumn() == 0){
+        if(validateReaderNumber())
+        {
+            qDebug() <<"Current selected item is: "<< ui->reqTable->currentItem()->text();
+            auto it = bMap.find(ui->reqTable->currentItem()->text().toULongLong());
+            it->decrement_number();
+            bMap.insert(it.key(), it.value());
+            bRequest.insert(ui->readerNumberInput->text().toUInt(), it.value());
+        }
+        else{
+            generateError("INVALID READER NUMBER OR IT ALREADY HAS A BOOK REQUESTED");
+        }
+    }
+    else{
+        //qDebug() <<"Please select the ISBN columsn";
+        generateError("PLEASE SELECT AN ISBN ITEM");
+    }
     write_to_file();
+    write_to_req_file();
     populateTable();
- }
+}
 
 void MainWindow::returnBook()
 {
 
+}
+
+bool MainWindow::validateReaderNumber()
+{
+    QString number = ui->readerNumberInput->text();
+    bool ret = false;
+    if(bRequest.contains(number.toUInt()))
+    {
+        return false;
+    }
+    for (int i = 0 ;i< number.length() ; i++ ) {
+        if(number.at(i) >=48 && number.at(i) <=57)
+        {
+             ret = true;
+        }
+        else{
+            return false;
+        }
+    }
+    return ret;
 }
 
 
@@ -570,7 +685,9 @@ void MainWindow:: setConnections()
 void MainWindow:: initFunctions()
 {
     loadMap();
+    loadRequestMaps();
     print_map();
+    print_map_requests();
     loadFilterComboBox();
     loadTypeComboBox();
     loadGenreComboBox();

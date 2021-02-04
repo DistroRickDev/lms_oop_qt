@@ -25,6 +25,9 @@ private:
     //Add library books
     QMap<unsigned long long, library_books> bMap;
 
+    //Requested Map
+    QMap<unsigned int, library_books> bRequest;
+
     // TYPE -> GENRE -> SUBGENRE
     QStringList bTypes;
 
@@ -41,6 +44,12 @@ private:
     void loadMap();
     void print_map();
     void write_to_file();
+
+    //RequesMap <-> IO functions
+    void loadRequestMaps();
+    void print_map_requests();
+    void write_to_req_file();
+
 
     //Build QStringLists
     void buildbTypes();
@@ -69,6 +78,7 @@ private:
 
     void generateError(QString);
 
+    bool validateReaderNumber();
 private slots:
     void submit_btn_clicked();
     void update_by_filter();

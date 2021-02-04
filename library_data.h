@@ -15,13 +15,13 @@ protected:
     QDate return_date;
 public:
     library_books(QString title, QString author,QString type, QString genre, QString subgenre,QString publisher, unsigned long long isbn, int year,
-                  int num_c = 1, bool availability = true, QString li="N/A", QDate req = QDate(), QDate ret = QDate()):Book (title, author, type, genre, subgenre, publisher,isbn, year){
+                  int num_c = 1, int c_num_c = 1, bool availability = true, QString li="N/A", QDate req = QDate(), QDate ret = QDate()):Book (title, author, type, genre, subgenre, publisher,isbn, year){
         this->availability = availability;
         number_of_copies = num_c;
         library_id = li;
         request_date = req;
         return_date = ret;
-        number_of_current_books = number_of_copies;
+        number_of_current_books = c_num_c;
     }
     //~library_books();
 
@@ -35,6 +35,7 @@ public:
     QString get_publisher();
     bool get_availability();
     int get_number_of_current_books();
+    int get_number_of_copies();
     int get_edition_year();
     //generate library id
     void add_library_id();
@@ -43,6 +44,8 @@ public:
     void decrement_number();
     void set_request_date(QDate);
     void set_return_date(QDate);
+    QDate get_request_date();
+    QDate get_return_date();
 };
 
 #endif // LIBRARY_DATA_H
