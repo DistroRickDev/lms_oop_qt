@@ -604,6 +604,11 @@ void MainWindow::tabChanged( )
 
 void MainWindow::requestBook()
 {
+    if(!bAuxUtils::validateReqDate(ui->reqCalendar->selectedDate(), ui->returnCalendar->selectedDate()))
+    {
+        generateError("Invalide request/return date or return period bigger than 12 days");
+        return;
+    }
     if(ui->reqTable->currentColumn() == 0){
         if(validateReaderNumber())
         {
@@ -611,6 +616,8 @@ void MainWindow::requestBook()
             auto it = bMap.find(ui->reqTable->currentItem()->text().toULongLong());
             it->decrement_number();
             bMap.insert(it.key(), it.value());
+            it->set_request_date(ui->reqCalendar->selectedDate());
+            it->set_return_date(ui->reqCalendar->selectedDate());
             bRequest.insert(ui->readerNumberInput->text().toUInt(), it.value());
         }
         else{
@@ -628,8 +635,42 @@ void MainWindow::requestBook()
 
 void MainWindow::returnBook()
 {
+    if(ui->reqTable->currentColumn() == 0){
+            if(!bRequest.contains(ui->readerNumberInput->text().toUInt()))
+            {
+                  generateError("Reader Number not found in pendent returns");
+                  return;
+            }
 
+            auto req = bRequest.find(ui->readerNumberInput->text().toUInt());
+
+            if(ui->returnCalendar->selectedDate() < QDate::currentDate())
+            {
+                  generateError("Cannot return books in past dates");
+                  return;
+            }
+
+            if( req->get_isbn()!= ui->reqTable->currentItem()->text().toULongLong())
+            {
+                  generateError("Reader Number does not hold this book");
+                  return;
+            }
+
+            qDebug() <<"Current selected item is: "<< ui->reqTable->currentItem()->text();
+            auto it = bMap.find(ui->reqTable->currentItem()->text().toULongLong());
+            it->increment_number();
+            bMap.insert(it.key(), it.value());
+            bRequest.remove(req.key());
+       }
+    else{
+        //qDebug() <<"Please select the ISBN columsn";
+        generateError("PLEASE SELECT AN ISBN ITEM");
+    }
+    write_to_file();
+    write_to_req_file();
+    populateTable();
 }
+
 
 bool MainWindow::validateReaderNumber()
 {
@@ -650,7 +691,6 @@ bool MainWindow::validateReaderNumber()
     }
     return ret;
 }
-
 
 void MainWindow:: setConnections()
 {
@@ -681,6 +721,7 @@ void MainWindow:: setConnections()
     connect(ui->MainWindowTab, &QTabWidget::currentChanged, this, &MainWindow::tabChanged);
 
     connect(ui->reqBookBtn, &QPushButton::clicked, this, &MainWindow::requestBook);
+    connect(ui->returnBookBtn, &QPushButton::clicked, this, &MainWindow::returnBook);
 }
 void MainWindow:: initFunctions()
 {

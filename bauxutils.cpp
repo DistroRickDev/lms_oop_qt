@@ -23,3 +23,22 @@ QStringList bAuxUtils::return_alphabet()
 {
     return bAlphabet;
 }
+
+bool bAuxUtils::validateReqDate(QDate req, QDate ret)
+{
+    if(ret < QDate::currentDate() || req < QDate::currentDate())
+    {
+        return false;
+    }
+    if (ret < req)
+    {
+        return false;
+    }
+    if(ret.toJulianDay() - req.toJulianDay() > 12)
+    {
+        return false;
+    }
+    else{
+        return true;
+    }
+}

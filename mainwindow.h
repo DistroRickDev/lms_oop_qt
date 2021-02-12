@@ -79,6 +79,7 @@ private:
     void generateError(QString);
 
     bool validateReaderNumber();
+
 private slots:
     void submit_btn_clicked();
     void update_by_filter();
