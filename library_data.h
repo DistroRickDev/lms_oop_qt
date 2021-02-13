@@ -7,7 +7,7 @@
 class library_books: protected Book
 {
 protected:
-    bool availability; //if true is available else is not available
+    //bool availability; //if true is available else is not available
     int number_of_copies;
     QString library_id;
     int number_of_current_books;
@@ -15,8 +15,8 @@ protected:
     QDate return_date;
 public:
     library_books(QString title, QString author,QString type, QString genre, QString subgenre,QString publisher, unsigned long long isbn, int year,
-                  int num_c = 1, int c_num_c = 1, bool availability = true, QString li="N/A", QDate req = QDate(), QDate ret = QDate()):Book (title, author, type, genre, subgenre, publisher,isbn, year){
-        this->availability = availability;
+                  int num_c = 1, int c_num_c = 1, /*bool availability = true,*/ QString li="N/A", QDate req = QDate(), QDate ret = QDate()):Book (title, author, type, genre, subgenre, publisher,isbn, year){
+        //this->availability = availability;
         number_of_copies = num_c;
         library_id = li;
         request_date = req;
@@ -33,19 +33,20 @@ public:
     QString get_subgenre();
     QString get_library_id();
     QString get_publisher();
-    bool get_availability();
+    //bool get_availability();
     int get_number_of_current_books();
     int get_number_of_copies();
     int get_edition_year();
     //generate library id
     void add_library_id();
-    void setAvaialbility(bool);
+    //void setAvaialbility(bool);
     void increment_number();
     void decrement_number();
     void set_request_date(QDate);
     void set_return_date(QDate);
     QDate get_request_date();
     QDate get_return_date();
+    void set_number_of_current_books(int);
 };
 
 #endif // LIBRARY_DATA_H

@@ -80,6 +80,8 @@ private:
 
     bool validateReaderNumber();
 
+    void build_avaialbility_table();
+
 private slots:
     void submit_btn_clicked();
     void update_by_filter();
@@ -100,6 +102,8 @@ private slots:
     void tabChanged();
     void requestBook();
     void returnBook();
+    void setRequestAndReturn();
+    void populate_req_table();
 };
 
 #endif // MAINWINDOW_H

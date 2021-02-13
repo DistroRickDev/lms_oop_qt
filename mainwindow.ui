@@ -105,6 +105,11 @@ QRadioButton, #remove_label{
 
 QComboBox:disabled{
 	color: gray;
+}
+
+#available_rb , #unavailable_rb
+{
+	background: transparent;
 }</string>
   </property>
   <property name="animated">
@@ -114,7 +119,7 @@ QComboBox:disabled{
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_24">
+   <layout class="QVBoxLayout" name="verticalLayout_12">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -159,11 +164,23 @@ QComboBox:disabled{
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QTableWidget" name="infoTable">
+            <property name="minimumSize">
+             <size>
+              <width>1250</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>1250</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <attribute name="horizontalHeaderMinimumSectionSize">
-             <number>122</number>
+             <number>123</number>
             </attribute>
             <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>122</number>
+             <number>123</number>
             </attribute>
            </widget>
           </item>
@@ -365,6 +382,15 @@ QComboBox:disabled{
                   </item>
                   <item>
                    <widget class="QSpinBox" name="qty_sb">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
+                    <property name="specialValueText">
+                     <string/>
+                    </property>
+                    <property name="keyboardTracking">
+                     <bool>true</bool>
+                    </property>
                     <property name="minimum">
                      <number>1</number>
                     </property>
@@ -681,6 +707,9 @@ QComboBox:disabled{
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -750,10 +779,10 @@ QComboBox:disabled{
                  <enum>QAbstractItemView::SingleSelection</enum>
                 </property>
                 <attribute name="horizontalHeaderMinimumSectionSize">
-                 <number>183</number>
+                 <number>200</number>
                 </attribute>
                 <attribute name="horizontalHeaderDefaultSectionSize">
-                 <number>183</number>
+                 <number>200</number>
                 </attribute>
                 <attribute name="horizontalHeaderHighlightSections">
                  <bool>false</bool>
@@ -911,6 +940,99 @@ QComboBox:disabled{
          <attribute name="title">
           <string>Book Availability</string>
          </attribute>
+         <layout class="QHBoxLayout" name="horizontalLayout_24">
+          <item>
+           <widget class="QTableWidget" name="book_avail_table">
+            <property name="minimumSize">
+             <size>
+              <width>1000</width>
+              <height>200</height>
+             </size>
+            </property>
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>125</number>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>125</number>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_11">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <item>
+               <widget class="QCalendarWidget" name="reqTableCal">
+                <property name="horizontalHeaderFormat">
+                 <enum>QCalendarWidget::NoHorizontalHeader</enum>
+                </property>
+                <property name="verticalHeaderFormat">
+                 <enum>QCalendarWidget::NoVerticalHeader</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCalendarWidget" name="retTableCal">
+                <property name="horizontalHeaderFormat">
+                 <enum>QCalendarWidget::NoHorizontalHeader</enum>
+                </property>
+                <property name="verticalHeaderFormat">
+                 <enum>QCalendarWidget::NoVerticalHeader</enum>
+                </property>
+                <property name="navigationBarVisible">
+                 <bool>true</bool>
+                </property>
+                <property name="dateEditEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <item>
+               <widget class="QRadioButton" name="available_rb">
+                <property name="text">
+                 <string>AVAILABLE</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="unavailable_rb">
+                <property name="text">
+                 <string>LOANED</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="filter_req_ret_btn">
+              <property name="text">
+               <string>FILTER</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
