@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "warning_popup.h"
 //comment
@@ -627,7 +627,9 @@ void MainWindow::tabChanged( )
     {
         populateTable();
     }
-    else{
+    else if(index == 3){
+        ui->book_avail_table->clearContents();
+        ui->book_avail_table->setRowCount(0);
     }
 }
 
@@ -734,21 +736,93 @@ void MainWindow::populate_req_table()
     int rows = 0;
     if(bRequest.isEmpty() && ui->available_rb->isChecked())
     {
-        rows = bMap.size();
-         ui->book_avail_table->setRowCount(rows);
+        for(auto it: bMap)
+        {
+            rows++;
+            ui->book_avail_table->setRowCount(rows);
+            ui->book_avail_table->setItem(rows-1, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
+            ui->book_avail_table->setItem(rows-1, 1, new QTableWidgetItem(it.get_title()));
+            ui->book_avail_table->setItem(rows-1, 2, new QTableWidgetItem(it.get_author()));
+            ui->book_avail_table->setItem(rows-1, 3, new QTableWidgetItem("NA"));
+            ui->book_avail_table->setItem(rows-1, 4, new QTableWidgetItem("NA"));
+            ui->book_avail_table->setItem(rows-1, 5, new QTableWidgetItem("NA"));
+        }
     }
+
     else if(ui->unavailable_rb->isChecked()){//checking unavailable books
-        for(auto it: bRequest){
-            if(req <= it.get_return_date() && ret <= it.get_return_date())
+        for(auto it = bRequest.begin(); it != bRequest.end(); it++){
+            //(req <= it.get_return_date() && ret <= it.get_return_date())
+            if((req <= it->get_return_date() && ret <= it->get_return_date()) || req <= it->get_return_date())
             {
-                qDebug() << "Book found\n";
                 rows++;
                 ui->book_avail_table->setRowCount(rows);
-                ui->book_avail_table->setItem(rows-1, 1, new QTableWidgetItem(it.get_title()));
+                ui->book_avail_table->setItem(rows-1, 0, new QTableWidgetItem(QString::number(it->get_isbn())));
+                ui->book_avail_table->setItem(rows-1, 1, new QTableWidgetItem(it->get_title()));
+                ui->book_avail_table->setItem(rows-1, 2, new QTableWidgetItem(it->get_author()));
+                ui->book_avail_table->setItem(rows-1, 3, new QTableWidgetItem(it->get_request_date().toString()));
+                ui->book_avail_table->setItem(rows-1, 4, new QTableWidgetItem(it->get_return_date().toString()));
+                ui->book_avail_table->setItem(rows-1, 5, new QTableWidgetItem(QString::number(it.key())));
             }
         }
     }
 
+    /*it works til here*/
+
+
+
+     else if(ui->available_rb->isChecked()){//checking unavailable books
+        QList <unsigned long long> titles;
+        for (auto it: bRequest ) {
+            if(req > it.get_return_date())
+            {
+              qDebug() << "It's av: " << it.get_title();
+                rows++;
+                ui->book_avail_table->setRowCount(rows);
+                ui->book_avail_table->setItem(rows-1, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
+                ui->book_avail_table->setItem(rows-1, 1, new QTableWidgetItem(it.get_title()));
+                ui->book_avail_table->setItem(rows-1, 2, new QTableWidgetItem(it.get_author()));
+                ui->book_avail_table->setItem(rows-1, 3, new QTableWidgetItem(it.get_request_date().toString()));
+                ui->book_avail_table->setItem(rows-1, 4, new QTableWidgetItem(it.get_return_date().toString()));
+                ui->book_avail_table->setItem(rows-1, 5, new QTableWidgetItem("NA"));
+            }
+            titles.push_back(it.get_isbn());
+        }
+        for(auto it: bMap)
+        {
+            if(titles.contains(it.get_isbn()))
+            {
+                /*
+                for(auto x: bRequest)
+                {
+                  if(x.get_isbn() == it.get_isbn())
+                  {
+                      if(req > x.get_return_date())
+                      {
+                        qDebug() << "It's av: " << it.get_title();
+                          rows++;
+                          ui->book_avail_table->setRowCount(rows);
+                          ui->book_avail_table->setItem(rows-1, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
+                          ui->book_avail_table->setItem(rows-1, 1, new QTableWidgetItem(it.get_title()));
+                          ui->book_avail_table->setItem(rows-1, 2, new QTableWidgetItem(it.get_author()));
+                          ui->book_avail_table->setItem(rows-1, 3, new QTableWidgetItem(it.get_request_date().toString()));
+                          ui->book_avail_table->setItem(rows-1, 4, new QTableWidgetItem(it.get_return_date().toString()));
+                          ui->book_avail_table->setItem(rows-1, 5, new QTableWidgetItem("NA"));
+                      }
+                  }
+                }*/
+            }
+            else{
+                 rows++;
+                 ui->book_avail_table->setRowCount(rows);
+                 ui->book_avail_table->setItem(rows-1, 0, new QTableWidgetItem(QString::number(it.get_isbn())));
+                 ui->book_avail_table->setItem(rows-1, 1, new QTableWidgetItem(it.get_title()));
+                 ui->book_avail_table->setItem(rows-1, 2, new QTableWidgetItem(it.get_author()));
+                 ui->book_avail_table->setItem(rows-1, 3, new QTableWidgetItem("NA"));
+                 ui->book_avail_table->setItem(rows-1, 4, new QTableWidgetItem("NA"));
+                 ui->book_avail_table->setItem(rows-1, 5, new QTableWidgetItem("NA"));
+            }
+        }
+    }
 }
 
 
@@ -776,8 +850,8 @@ bool MainWindow::validateReaderNumber()
 void MainWindow::build_avaialbility_table()
 {
     ui->book_avail_table->clearContents();
-    ui->book_avail_table->setColumnCount(8);
-    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "TYPE", "GENRE", "SUBGENRE", "PUBLISHER", "YEAR OF EDITION"};
+    ui->book_avail_table->setColumnCount(6);
+    QStringList labels{"ISBN" , "TITLE" ,"AUTHOR" , "REQUEST DATE",  "RETURN DATE", "REQUESTED BY"};
     ui->book_avail_table->setHorizontalHeaderLabels(labels);
 }
 

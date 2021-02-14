@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1258</width>
+    <width>1292</width>
     <height>648</height>
    </rect>
   </property>
@@ -155,7 +155,7 @@ QComboBox:disabled{
          </font>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="books_tab">
          <attribute name="title">
@@ -950,10 +950,10 @@ QComboBox:disabled{
              </size>
             </property>
             <attribute name="horizontalHeaderMinimumSectionSize">
-             <number>125</number>
+             <number>166</number>
             </attribute>
             <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>125</number>
+             <number>166</number>
             </attribute>
            </widget>
           </item>
