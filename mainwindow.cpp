@@ -734,6 +734,7 @@ void MainWindow::populate_req_table()
     auto req = ui->reqTableCal->selectedDate();
     auto ret = ui->retTableCal->selectedDate();
     int rows = 0;
+
     if(bRequest.isEmpty() && ui->available_rb->isChecked())
     {
         for(auto it: bMap)
@@ -767,8 +768,6 @@ void MainWindow::populate_req_table()
     }
 
     /*it works til here*/
-
-
 
      else if(ui->available_rb->isChecked()){//checking unavailable books
         QList <unsigned long long> titles;
